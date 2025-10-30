@@ -186,6 +186,7 @@ class MyRunnable(Runnable):
         self.project_key = project_key
         self.config = config
         self.plugin_config = plugin_config
+        self.num_AI_services_used = 0
         
     def get_progress_target(self):
         """
@@ -201,4 +202,5 @@ class MyRunnable(Runnable):
         """
         # raise Exception("unimplemented")
         client = dataiku.api_client()
+        
         
