@@ -187,6 +187,7 @@ class MyRunnable(Runnable):
         self.config = config
         self.plugin_config = plugin_config
         self.num_AI_services_used = 0
+        self.client = dataiku.api_client()
         
     def get_progress_target(self):
         """
@@ -194,6 +195,37 @@ class MyRunnable(Runnable):
         (target, unit) where unit is one of: SIZE, FILES, RECORDS, NONE
         """
         return None
+    
+    def run_projects(self, progress_callback):
+        """
+        x
+        """
+        # iterate through the list of projects
+        for project_key in PROJECTS_LIST:
+            try:
+                project_handle = client.get_project(project_key)
+
+                # Ensure that the project meets the requirements for creating AI generated descriptions
+                if is_project_empty(project_handle):
+                    print(f"[SKIP] Project must have datasets or recipes in flow, can't create description: {project_key}")
+                    continue
+
+                # Only generate descriptions if there is not one already:
+                if is_project_description_empty(project_handle):
+                    print(f"Project {project_key} has an empty description, generating AI description for it.")
+                    num_AI_services_used += 1
+
+                    # https://developer.dataiku.com/latest/api-reference/python/projects.html#dataikuapi.dss.project.DSSProject.generate_ai_description
+                    project_handle.generate_ai_description(
+                        language=LANGUAGE,
+                        purpose=PROJECT_PURPOSE,
+                        length=PROJECT_LENGTH,
+                        save_description=SAVE_DESCRIPTION
+                    )
+
+    except JSONDecodeError:
+        print(f"[JSONDecodeError] Creating project description for {project_key}")
+        continue
 
     def run(self, progress_callback):
         """
@@ -201,6 +233,6 @@ class MyRunnable(Runnable):
         The progress_callback is a function expecting 1 value: current progress
         """
         # raise Exception("unimplemented")
-        client = dataiku.api_client()
+        # client = dataiku.api_client()
         
         
