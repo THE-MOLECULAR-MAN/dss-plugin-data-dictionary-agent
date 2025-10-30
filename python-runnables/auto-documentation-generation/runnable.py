@@ -153,25 +153,6 @@ def read_first_dataset_row(project_key, dataset_name):
         return False
 
 
-# def tag_object_as_auto_generated(object_handle):
-#     """
-#     x
-#     """
-#     if isinstance(object_handle, dataiku.Dataset):
-        
-#     elif isinstance(object_handle, dataiku.DSSProject):
-#         project_tags = project.get_tags()
-#         project_tags.append("AI_generated_description")
-#         project.set_tags(project_tags)
-# #     elif isinstance(object_handle, dataiku.Dataset):
-
-        
-
-        
-
-#         dataset_settings = dataset.get_settings()
-#         dataset_settings.tags.append("AI_generated_description")
-#         dataset_settings.save()
 
 
 class MyRunnable(Runnable):
