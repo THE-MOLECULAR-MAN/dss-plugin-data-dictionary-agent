@@ -53,7 +53,7 @@
               "name": "language",
               "label": "Language",
               "type": "SELECT",
-              "defaultValue": { "value": "english", "label": "English"},
+              "defaultValue": "english",
               "selectChoices" : [
                   { "value": "english", "label": "English"},
                     { "value": "dutch", "label": "Dutch"},
