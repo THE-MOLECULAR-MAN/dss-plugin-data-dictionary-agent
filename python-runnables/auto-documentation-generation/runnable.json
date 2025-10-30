@@ -79,14 +79,13 @@
           },
         {
               "name": "project_length",
-              "label": "Purpose for Project description",
+              "label": "Length for Project description",
               "type": "SELECT",
-              "defaultValue": "generic",
+              "defaultValue": "medium",
               "selectChoices" : [
-                  { "value": "generic", "label": "Generic"},
-                    { "value": "technical", "label": "Technical"},
-                    { "value": "business_oriented", "label": "Business oriented"},
-                    { "value": "executive", "label": "Executive"}
+                  { "value": "low", "label": "Short"},
+                    { "value": "medium", "label": "Medium"},
+                    { "value": "high", "label": "Long"}
               ],
               "mandatory": true
           },
