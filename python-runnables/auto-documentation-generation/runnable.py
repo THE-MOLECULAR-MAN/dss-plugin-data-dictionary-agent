@@ -201,11 +201,11 @@ class MyRunnable(Runnable):
         """
         x
         """
-        LANGUAGE = self.config['language']
-        PROJECT_PURPOSE = self.config['project_purpose']
-        PROJECT_LENGTH = self.config['project_length']
+        LANGUAGE         = self.config['language']
+        PROJECT_PURPOSE  = self.config['project_purpose']
+        PROJECT_LENGTH   = self.config['project_length']
         SAVE_DESCRIPTION = self.config['save_description']
-        PROJECTS_LIST = self.client.list_project_keys()
+        PROJECTS_LIST    = self.client.list_project_keys()
         
         # iterate through the list of projects
         for project_key in PROJECTS_LIST:
