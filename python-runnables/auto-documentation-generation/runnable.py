@@ -201,6 +201,10 @@ class MyRunnable(Runnable):
         """
         x
         """
+        LANGUAGE = 
+        PROJECT_PURPOSE = 
+        PROJECT_LENGTH = 
+        SAVE_DESCRIPTION = 
         # iterate through the list of projects
         for project_key in PROJECTS_LIST:
             try:
