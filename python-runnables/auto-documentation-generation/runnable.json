@@ -90,7 +90,7 @@
           },
         {
               "name": "flowzone_purpose",
-              "label": "Purpose for Project description",
+              "label": "Purpose for flow zone description",
               "type": "SELECT",
               "defaultValue": "generic",
               "selectChoices" : [
@@ -103,7 +103,7 @@
           },
         {
               "name": "flowzone_length",
-              "label": "Length for Project description",
+              "label": "Length for flowzone description",
               "type": "SELECT",
               "defaultValue": "medium",
               "selectChoices" : [
