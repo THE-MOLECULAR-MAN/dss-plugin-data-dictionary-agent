@@ -41,31 +41,17 @@
               "mandatory": true
           },
         {
-            "name": "parameter2",
-            "label": "parameter2",
-            "type": "INT",
-            "defaultValue": 42
-            /* Note that standard json parsing will return it as a double in Python (instead of an int), so you need to write
-               int(self.config()['parameter2'])
-            */
+            "name": "tagname_aigen",
+            "label": "Tag name to indicate it was AI generated",
+            "type": "STRING"
         },
-
-        /* A "SELECT" parameter is a multi-choice selector. Choices are specified using the selectChoice field*/
         {
-            "name": "parameter8",
-            "label": "parameter8",
-            "type": "SELECT",
-            "selectChoices": [
-                {
-                    "value": "val_x",
-                    "label": "display name for val_x"
-                },
-                {
-                    "value": "val_y",
-                    "label": "display name for val_y"
-                }
-            ]
+            "name": "tagname_DoNotAutoFill",
+            "label": "Tag name to indicate this object should NOT be automatically filled with AI generated descriptions",
+            "type": "STRING"
         }
+
+
     ],
 
     /* list of required permissions on the project to see/run the runnable */
