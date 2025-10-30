@@ -240,6 +240,6 @@ class MyRunnable(Runnable):
         """
         # raise Exception("unimplemented")
         # client = dataiku.api_client()
-        run_projects(self, )
+        self.run_projects()
         
         
