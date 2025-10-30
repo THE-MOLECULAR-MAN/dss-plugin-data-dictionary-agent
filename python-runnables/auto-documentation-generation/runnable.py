@@ -214,7 +214,7 @@ class MyRunnable(Runnable):
                 # Only generate descriptions if there is not one already:
                 if is_project_description_empty(project_handle):
                     print(f"Project {project_key} has an empty description, generating AI description for it.")
-                    num_AI_services_used += 1
+                    self.num_AI_services_used += 1
 
                     # https://developer.dataiku.com/latest/api-reference/python/projects.html#dataikuapi.dss.project.DSSProject.generate_ai_description
                     project_handle.generate_ai_description(
