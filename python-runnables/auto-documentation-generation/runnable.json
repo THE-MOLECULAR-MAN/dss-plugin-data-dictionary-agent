@@ -27,12 +27,19 @@
     */
     "params": [
         {
-            "name": "parameter1",
-            "label": "User-readable name",
-            "type": "STRING",
-            "description": "Some documentation for parameter1",
-            "mandatory": true
-        },
+              "name": "language",
+              "label": "Language",
+              "type": "SELECT",
+              "selectChoices" : [
+                  { "value": "english", "label": "English"},
+                    { "value": "dutch", "label": "Dutch"},
+                    { "value": "french", "label": "French"},
+                    { "value": "german", "label": "German"},
+                    { "value": "portuguese", "label": "Portuguese"},
+                    { "value": "spanish", "label": "Spanish"}
+              ],
+              "mandatory": true
+          },
         {
             "name": "parameter2",
             "label": "parameter2",
