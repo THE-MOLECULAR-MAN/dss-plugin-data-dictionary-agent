@@ -30,6 +30,7 @@
               "name": "language",
               "label": "Language",
               "type": "SELECT",
+              "defaultValue": { "value": "english", "label": "English"},
               "selectChoices" : [
                   { "value": "english", "label": "English"},
                     { "value": "dutch", "label": "Dutch"},
@@ -43,12 +44,14 @@
         {
             "name": "tagname_aigen",
             "label": "Tag name to indicate it was AI generated",
-            "type": "STRING"
+            "type": "STRING",
+            "defaultValue": "AI_generated_description"
         },
         {
             "name": "tagname_DoNotAutoFill",
             "label": "Tag name to indicate this object should NOT be automatically filled with AI generated descriptions",
-            "type": "STRING"
+            "type": "STRING",
+            "defaultValue": "Do_not_fill_description_using_AI"
         }
     ],
 
