@@ -213,9 +213,9 @@ class MyRunnable(Runnable):
                         save_description=SAVE_DESCRIPTION
                     )
 
-    except JSONDecodeError:
-        print(f"[JSONDecodeError] Creating project description for {project_key}")
-        continue
+            except JSONDecodeError:
+                print(f"[JSONDecodeError] Creating project description for {project_key}")
+                continue
 
     def run(self, progress_callback):
         """
