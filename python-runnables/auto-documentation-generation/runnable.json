@@ -38,6 +38,18 @@
               "mandatory": true
           },
         {
+              "name": "object_types_to_autofill",
+              "label": "Types of objects to auto-fill empty descriptions",
+              "type": "MULTISELECT",
+              "selectChoices" : [
+                  { "value": "projects", "label": "Project descriptions"},
+                    { "value": "flowzones", "label": "Flowzone descriptions"},
+                    { "value": "datasets", "label": "Dataset long and short descriptions, and column descriptions"}
+              ],
+              "mandatory": true
+          },
+        
+        {
               "name": "language",
               "label": "Language",
               "type": "SELECT",
