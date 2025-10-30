@@ -199,5 +199,6 @@ class MyRunnable(Runnable):
         Do stuff here. Can return a string or raise an exception.
         The progress_callback is a function expecting 1 value: current progress
         """
-        raise Exception("unimplemented")
+        # raise Exception("unimplemented")
+        client = dataiku.api_client()
         
