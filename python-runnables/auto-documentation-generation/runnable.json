@@ -53,6 +53,19 @@
               "mandatory": true
           },
         {
+              "name": "project_purpose",
+              "label": "Purpose for Project description",
+              "type": "SELECT",
+              "defaultValue": { "value": "generic", "label": "Generic"},
+              "selectChoices" : [
+                  { "value": "generic", "label": "Generic"},
+                    { "value": "technical", "label": "Technical"},
+                    { "value": "business_oriented", "label": "Business oriented"},
+                    { "value": "executive", "label": "Executive"}
+              ],
+              "mandatory": true
+          },        
+        {
             "name": "tagname_aigen",
             "label": "Tag name to indicate it was AI generated",
             "type": "STRING",
