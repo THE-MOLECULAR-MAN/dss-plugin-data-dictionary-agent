@@ -27,6 +27,20 @@
     */
     "params": [
         {
+              "name": "project_filter",
+              "label": "Project filter",
+              "type": "SELECT",
+              "selectChoices" : [
+                  { "value": "all_projects", "label": "All projects (no filter)"},
+                    { "value": "project_tags", "label": "Project tag(s)"},
+                    { "value": "project_folder", "label": "Project folder(s)"},
+                    { "value": "german", "label": "German"},
+                    { "value": "portuguese", "label": "Portuguese"},
+                    { "value": "spanish", "label": "Spanish"}
+              ],
+              "mandatory": true
+          },
+        {
               "name": "language",
               "label": "Language",
               "type": "SELECT",
