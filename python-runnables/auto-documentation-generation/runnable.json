@@ -89,6 +89,31 @@
               "mandatory": true
           },
         {
+              "name": "flowzone_purpose",
+              "label": "Purpose for Project description",
+              "type": "SELECT",
+              "defaultValue": "generic",
+              "selectChoices" : [
+                  { "value": "generic", "label": "Generic"},
+                    { "value": "technical", "label": "Technical"},
+                    { "value": "business_oriented", "label": "Business oriented"},
+                    { "value": "executive", "label": "Executive"}
+              ],
+              "mandatory": true
+          },
+        {
+              "name": "flowzone_length",
+              "label": "Length for Project description",
+              "type": "SELECT",
+              "defaultValue": "medium",
+              "selectChoices" : [
+                  { "value": "low", "label": "Short"},
+                    { "value": "medium", "label": "Medium"},
+                    { "value": "high", "label": "Long"}
+              ],
+              "mandatory": true
+          },
+        {
             "name": "tagname_aigen",
             "label": "Tag name to indicate it was AI generated",
             "type": "STRING",
