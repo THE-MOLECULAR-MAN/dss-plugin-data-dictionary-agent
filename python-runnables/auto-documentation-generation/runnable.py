@@ -1,6 +1,15 @@
 # This file is the actual code for the Python runnable auto-documentation-generation
 from dataiku.runnables import Runnable
 
+from json import JSONDecodeError, dumps
+import sys
+import traceback
+
+import pandas as pd
+import dataiku
+from dataikuapi.utils import DataikuException
+import dataikuapi
+
 def is_project_empty(project_handle):
     """This traps the JSONDecodeError exception that occurs when generate_ai_description is called
     if the project has no datasets or recipes or flow zones"""
