@@ -26,7 +26,7 @@
     For the full list and for more details, see the documentation: https://doc.dataiku.com/dss/latest/plugins/reference/params.html
     */
     "params": [
-                {
+          {
             "name": "save_description",
             "label": "Apply AI generated changes (uncheck for dry run)",
             "type": "BOOLEAN",
