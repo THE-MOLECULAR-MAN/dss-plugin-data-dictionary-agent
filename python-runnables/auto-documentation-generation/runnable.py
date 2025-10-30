@@ -204,7 +204,7 @@ class MyRunnable(Runnable):
         # iterate through the list of projects
         for project_key in PROJECTS_LIST:
             try:
-                project_handle = client.get_project(project_key)
+                project_handle = self.client.get_project(project_key)
 
                 # Ensure that the project meets the requirements for creating AI generated descriptions
                 if is_project_empty(project_handle):
