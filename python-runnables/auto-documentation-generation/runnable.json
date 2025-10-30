@@ -9,7 +9,7 @@
 
         // icon: must be one of the FontAwesome 5.15.4 icons, complete list here at https://fontawesome.com/v5/docs/
         // "icon": "fas fa-puzzle-piece"
-        "icon": "fa-solid fa-trowel"
+        "icon": "fa-solid fa-fill"
     },
 
     /* whether the runnable's code is untrusted */
