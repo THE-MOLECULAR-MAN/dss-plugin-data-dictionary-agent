@@ -26,6 +26,12 @@
     For the full list and for more details, see the documentation: https://doc.dataiku.com/dss/latest/plugins/reference/params.html
     */
     "params": [
+                {
+            "name": "save_description",
+            "label": "Apply AI generated changes (set to False for dry run)",
+            "type": "BOOLEAN",
+                    "defaultValue": False
+          },
         {
               "name": "project_filter",
               "label": "Project filter",
