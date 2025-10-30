@@ -11,9 +11,9 @@
         "label": "Data dictionary agent",
 
         // description: longer string to help end users understand what this plugin does
-        "description": "",
+        "description": "TBD",
 
-        "author": "demo",
+        "author": "Abi Edwards, Tim Honker",
 
         // icon: must be one of the FontAwesome 5.15.4 icons, complete list here at https://fontawesome.com/v5/docs/
         "icon": "fas fa-puzzle-piece",
@@ -26,7 +26,7 @@
         "tags": [], //for example: ["Machine Learning", "NLP"]
 
         // URL where the user can learn more about the plugin
-        "url": "",
+        "url": "https://github.com/THE-MOLECULAR-MAN/dss-plugin-data-dictionary-agent",
 
         "licenseInfo": "Apache Software License"
     }
