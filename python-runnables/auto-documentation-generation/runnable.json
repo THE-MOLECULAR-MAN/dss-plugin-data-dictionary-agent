@@ -48,7 +48,6 @@
               ],
               "mandatory": true
           },
-        
         {
               "name": "language",
               "label": "Language",
