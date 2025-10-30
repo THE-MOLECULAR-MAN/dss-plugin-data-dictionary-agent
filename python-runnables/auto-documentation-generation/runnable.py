@@ -205,7 +205,7 @@ class MyRunnable(Runnable):
         PROJECT_PURPOSE = self.config['project_purpose']
         PROJECT_LENGTH = self.config['project_length']
         SAVE_DESCRIPTION = self.config['save_description']
-        PROJECTS_LIST = self.client.get_projects()
+        PROJECTS_LIST = self.client.list_project_keys()
         
         # iterate through the list of projects
         for project_key in PROJECTS_LIST:
