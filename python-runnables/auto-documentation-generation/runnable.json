@@ -50,8 +50,6 @@
             "label": "Tag name to indicate this object should NOT be automatically filled with AI generated descriptions",
             "type": "STRING"
         }
-
-
     ],
 
     /* list of required permissions on the project to see/run the runnable */
