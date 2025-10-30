@@ -30,7 +30,7 @@
             "name": "save_description",
             "label": "Apply AI generated changes (uncheck for dry run)",
             "type": "BOOLEAN",
-                    "defaultValue": False
+            "defaultValue": False
           },
         {
               "name": "project_filter",
