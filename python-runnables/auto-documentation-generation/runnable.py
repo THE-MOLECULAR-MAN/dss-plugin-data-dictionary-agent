@@ -197,7 +197,7 @@ class MyRunnable(Runnable):
         """
         return None
     
-    def run_projects(self, progress_callback):
+    def run_projects(self):
         """
         x
         """
@@ -240,6 +240,6 @@ class MyRunnable(Runnable):
         """
         # raise Exception("unimplemented")
         # client = dataiku.api_client()
-        run_projects
+        run_projects(self, )
         
         
