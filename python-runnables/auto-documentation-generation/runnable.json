@@ -28,7 +28,7 @@
     "params": [
                 {
             "name": "save_description",
-            "label": "Apply AI generated changes (set to False for dry run)",
+            "label": "Apply AI generated changes (uncheck for dry run)",
             "type": "BOOLEAN",
                     "defaultValue": False
           },
