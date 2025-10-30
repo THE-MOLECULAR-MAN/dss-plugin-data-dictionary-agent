@@ -201,7 +201,7 @@ class MyRunnable(Runnable):
         """
         x
         """
-        LANGUAGE = 
+        LANGUAGE = self.config.get('language','english')
         PROJECT_PURPOSE = 
         PROJECT_LENGTH = 
         SAVE_DESCRIPTION = 
