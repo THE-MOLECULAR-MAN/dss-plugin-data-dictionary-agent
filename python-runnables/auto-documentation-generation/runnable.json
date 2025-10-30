@@ -68,7 +68,7 @@
               "name": "project_purpose",
               "label": "Purpose for Project description",
               "type": "SELECT",
-              "defaultValue": { "value": "generic", "label": "Generic"},
+              "defaultValue": "generic",
               "selectChoices" : [
                   { "value": "generic", "label": "Generic"},
                     { "value": "technical", "label": "Technical"},
@@ -81,7 +81,7 @@
               "name": "project_length",
               "label": "Purpose for Project description",
               "type": "SELECT",
-              "defaultValue": { "value": "generic", "label": "Generic"},
+              "defaultValue": "generic",
               "selectChoices" : [
                   { "value": "generic", "label": "Generic"},
                     { "value": "technical", "label": "Technical"},
