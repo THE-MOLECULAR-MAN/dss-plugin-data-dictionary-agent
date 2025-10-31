@@ -492,7 +492,8 @@ class MyRunnable(Runnable):
         The progress_callback is a function expecting 1 value: current progress
         """
         # raise Exception("unimplemented")
-        pretty_print_dict(vars(self))
+        from pprint import pprint
+        pprint(vars(self))
         self.run_datasets()
         self.run_flowzones()
         self.run_projects()
