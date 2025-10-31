@@ -275,6 +275,9 @@ class MyRunnable(Runnable):
             self.__projects_list = [self.project_key]
         elif self.config["project_filter"] == "all_projects":
             self.__projects_list = self.client.list_project_keys()
+        else:
+            print(f"invalid project_filter: {self.config["project_filter"]} Defaulting to this project only")
+            self.__projects_list = [self.project_key]
 
     @property
     def num_ai_services_used(self):
