@@ -255,11 +255,10 @@ class MyRunnable(Runnable):
         self.plugin_config = plugin_config
 
         self.__num_ai_services_used = 0
-        self.__language         = self.config["language"]
-        self.__project_purpose  = self.config["project_purpose"]
-        self.__project_length   = self.config["project_length"]
-        self.__save_description = self.config["save_description"]
-
+        self.__language                = self.config["language"]
+        self.__project_purpose         = self.config["project_purpose"]
+        self.__project_length          = self.config["project_length"]
+        self.__save_description        = self.config["save_description"]
         self.__tagname_aigen           = self.config["tagname_aigen"]
         self.__tagname_do_not_autofill = self.config["tagname_DoNotAutoFill"]
 
