@@ -267,6 +267,10 @@ class MyRunnable(Runnable):
         self.__autofill_flowzones = "flowzones" in self.config["object_types_to_autofill"]
         self.__autofill_datasets  = "datasets"  in self.config["object_types_to_autofill"]
         
+        self.__tagname_aigen = 
+        
+        tagname_DoNotAutoFill
+        
         
         # self.__projects_list = self.config.get("projects_list", [])
 
