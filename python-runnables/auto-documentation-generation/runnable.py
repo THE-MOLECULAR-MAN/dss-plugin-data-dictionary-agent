@@ -10,7 +10,6 @@ import dataiku
 from dataikuapi.utils import DataikuException
 import dataikuapi
 
-print("LOADED!")
 
 def is_project_empty(project_handle):
     """This traps the JSONDecodeError exception that occurs when generate_ai_description is called
