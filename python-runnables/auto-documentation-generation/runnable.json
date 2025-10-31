@@ -84,7 +84,6 @@
               ],
               "mandatory": false,
               "visibilityCondition": "model.object_types_to_autofill.includes('projects')"
-
           },
         {
               "name": "project_length",
