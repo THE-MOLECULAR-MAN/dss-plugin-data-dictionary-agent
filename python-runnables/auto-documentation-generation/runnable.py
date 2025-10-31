@@ -285,6 +285,8 @@ class MyRunnable(Runnable):
         else:
             print(f"[WARNING] invalid project_filter: {pf} Defaulting to this project only")
             self.__projects_list = [self.project_key]
+              
+        print(self)
 
     @property
     def num_ai_services_used(self):
