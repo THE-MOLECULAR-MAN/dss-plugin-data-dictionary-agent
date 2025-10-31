@@ -39,7 +39,7 @@
               "defaultValue": "this_project_only",
               "selectChoices" : [
                    { "value": "this_project_only", "label": "This project only"},
-                  { "value": "all_projects", "label": "All projects (no filter)"}
+                   { "value": "all_projects",      "label": "All projects (no filter)"}
                   //  { "value": "project_tags", "label": "Project tag(s)"},
                   //  { "value": "project_folder", "label": "Project folder(s)"}
               ],
