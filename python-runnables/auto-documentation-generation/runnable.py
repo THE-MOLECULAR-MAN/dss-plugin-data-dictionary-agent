@@ -260,6 +260,9 @@ class MyRunnable(Runnable):
         self.__project_length   = self.config["project_length"]
         self.__save_description = self.config["save_description"]
 
+        self.__tagname_aigen           = self.config["tagname_aigen"]
+        self.__tagname_do_not_autofill = self.config["tagname_DoNotAutoFill"]
+
         # multi-select
         pf = self.config["project_filter"] # all_projects, project_tags, project_folder
 
@@ -267,8 +270,6 @@ class MyRunnable(Runnable):
         self.__autofill_flowzones = "flowzones" in self.config["object_types_to_autofill"]
         self.__autofill_datasets  = "datasets"  in self.config["object_types_to_autofill"]
         
-        self.__tagname_aigen           = self.config["tagname_aigen"]
-        self.__tagname_do_not_autofill = self.config["tagname_DoNotAutoFill"]
         
         
         
