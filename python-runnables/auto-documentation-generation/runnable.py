@@ -263,7 +263,10 @@ class MyRunnable(Runnable):
         # multi-select
         pf = self.config["project_filter"] # all_projects, project_tags, project_folder
 
-        self.__autofill_projects = "projects" in self.config["object_types_to_autofill"]
+        self.__autofill_projects  = "projects"  in self.config["object_types_to_autofill"]
+        self.__autofill_flowzones = "flowzones" in self.config["object_types_to_autofill"]
+        self.__autofill_datasets  = "datasets"  in self.config["object_types_to_autofill"]
+        
         
         # self.__projects_list = self.config.get("projects_list", [])
 
