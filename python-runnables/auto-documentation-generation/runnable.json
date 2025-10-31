@@ -49,7 +49,6 @@
               "name": "object_types_to_autofill",
               "label": "Types of objects to auto-fill empty descriptions",
               "type": "MULTISELECT",
-              "defaultValue": ["datasets"],
               "selectChoices" : [
                   { "value": "projects", "label": "Project descriptions"},
                     { "value": "flowzones", "label": "Flowzone descriptions"},
