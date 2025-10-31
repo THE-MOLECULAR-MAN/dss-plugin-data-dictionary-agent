@@ -276,7 +276,7 @@ class MyRunnable(Runnable):
         elif self.config["project_filter"] == "all_projects":
             self.__projects_list = self.__client.list_project_keys()
         else:
-            print(f"invalid project_filter: {self.config["project_filter"]} Defaulting to this project only")
+            print(f"[WARNING] invalid project_filter: {self.config["project_filter"]} Defaulting to this project only")
             self.__projects_list = [self.project_key]
 
     @property
