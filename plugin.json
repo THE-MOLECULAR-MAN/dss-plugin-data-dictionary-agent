@@ -13,17 +13,17 @@
         // description: longer string to help end users understand what this plugin does
         "description": "TBD",
 
-        "author": "Abi Edwards, Tim Honker",
+        "author": "Tim Honker",
 
         // icon: must be one of the FontAwesome 5.15.4 icons, complete list here at https://fontawesome.com/v5/search?ic=free&o=r
         "icon": "fas fa-database",
 
         // recipesCategory: optional, can be one of 'visual', 'code', 'genai' or 'other'
         // defines the category of the plugin in the right panel
-        "recipesCategory": "genai",
+        "recipesCategory": "other",
 
         // List of tags for filtering the list of plugins
-        "tags": ["Generative AI", "Enrichment", "Agents", "Catalog"], //for example: ["Machine Learning", "NLP"]
+        "tags": ["Enrichment", "Catalog"], //for example: ["Machine Learning", "NLP"]
 
         // URL where the user can learn more about the plugin
         "url": "https://github.com/THE-MOLECULAR-MAN/dss-plugin-data-dictionary-agent",
