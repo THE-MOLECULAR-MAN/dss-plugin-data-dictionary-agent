@@ -297,6 +297,11 @@ class MyRunnable(Runnable):
         """
         x
         """
+        
+        if self.__autofill_datasets:
+            print("Skipping Datasets since they're not selected")
+            return None
+
         # iterate through projects
         for project_key in self.__projects_list:
             project_handle = self.__client.get_project(project_key)
