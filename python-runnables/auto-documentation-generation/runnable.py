@@ -272,12 +272,12 @@ class MyRunnable(Runnable):
         pf = self.config["project_filter"] # all_projects, project_tags, project_folder
         
 
-        if self.config["project_filter"] == "this_project_only":
+        if pf == "this_project_only":
             self.__projects_list = [self.project_key]
-        elif self.config["project_filter"] == "all_projects":
+        elif pf == "all_projects":
             self.__projects_list = self.__client.list_project_keys()
         else:
-            print(f"[WARNING] invalid project_filter: {} Defaulting to this project only")
+            print(f"[WARNING] invalid project_filter: {pf} Defaulting to this project only")
             self.__projects_list = [self.project_key]
 
     @property
