@@ -385,8 +385,6 @@ class MyRunnable(Runnable):
         if self.__autofill_flowzones:
             print("Skipping Flowzones since they're not selected")
             return None
-
-        
         
         # Iterate through the list of projects
         for project_key in self.__projects_list:
