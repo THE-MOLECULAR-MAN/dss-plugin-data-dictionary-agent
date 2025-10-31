@@ -181,7 +181,8 @@ class MyRunnable(Runnable):
     @property
     def num_AI_services_used(self):
         return self._num_AI_services_used
-        
+
+    
     def get_progress_target(self):
         """
         If the runnable will return some progress info, have this function return a tuple of 
