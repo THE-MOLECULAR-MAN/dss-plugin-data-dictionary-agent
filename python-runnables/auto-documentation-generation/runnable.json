@@ -95,7 +95,7 @@
                     { "value": "medium", "label": "Medium"},
                     { "value": "high", "label": "Long"}
               ],
-              "mandatory": true,
+              "mandatory": false,
               "visibilityCondition": "model.object_types_to_autofill.includes('projects')"
 
           },
@@ -110,7 +110,7 @@
                     { "value": "business_oriented", "label": "Business oriented"},
                     { "value": "executive", "label": "Executive"}
               ],
-              "mandatory": true,
+              "mandatory": false,
               "visibilityCondition": "model.object_types_to_autofill.includes('flowzones')"
 
           },
@@ -124,7 +124,7 @@
                     { "value": "medium", "label": "Medium"},
                     { "value": "high", "label": "Long"}
               ],
-              "mandatory": true,
+              "mandatory": false,
               "visibilityCondition": "model.object_types_to_autofill.includes('flowzones')"
           }
        /* {
