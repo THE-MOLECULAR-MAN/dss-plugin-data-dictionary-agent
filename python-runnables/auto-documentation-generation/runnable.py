@@ -170,7 +170,7 @@ class MyRunnable(Runnable):
         self.config = config
         self.plugin_config = plugin_config
         
-        self.num_AI_services_used = 0
+        self._num_AI_services_used = 0
         self.LANGUAGE         = self.config['language']
         self.PROJECT_PURPOSE  = self.config['project_purpose']
         self.PROJECT_LENGTH   = self.config['project_length']
@@ -179,7 +179,7 @@ class MyRunnable(Runnable):
         self.client = dataiku.api_client()
         
     def get_AI_services_used_count(self):
-        return self.num_AI_services_used
+        return self._num_AI_services_used
         
     def get_progress_target(self):
         """
@@ -208,7 +208,7 @@ class MyRunnable(Runnable):
                 # Only generate descriptions if there is not one already:
                 if is_project_description_empty(project_handle):
                     print(f"Project {project_key} has an empty description, generating AI description for it.")
-                    self.num_AI_services_used += 1
+                    self._num_AI_services_used += 1
 
                     # https://developer.dataiku.com/latest/api-reference/python/projects.html#dataikuapi.dss.project.DSSProject.generate_ai_description
                     project_handle.generate_ai_description(
