@@ -273,8 +273,8 @@ class MyRunnable(Runnable):
 
         if self.config["project_filter"] == "this_project_only":
             self.__projects_list = [self.project_key]
-        elif 
-        self.__projects_list = self.client.list_project_keys()
+        elif self.config["project_filter"] == "all_projects":
+            self.__projects_list = self.client.list_project_keys()
 
     @property
     def num_ai_services_used(self):
