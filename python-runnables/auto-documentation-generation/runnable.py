@@ -259,9 +259,11 @@ class MyRunnable(Runnable):
         self.__project_purpose = self.config["project_purpose"]
         self.__project_length = self.config["project_length"]
         self.__save_description = self.config["save_description"]
-        
-        pf = self.config["project_filter"] # projects, 
 
+        # multi-select
+        pf = self.config["project_filter"] # all_projects, project_tags, project_folder
+
+        
         # self.__projects_list = self.config.get("projects_list", [])
 
         self.__client = dataiku.api_client()
