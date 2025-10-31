@@ -178,6 +178,9 @@ class MyRunnable(Runnable):
 
         self.client = dataiku.api_client()
         
+    def get_AI_services_used_count(self):
+        return self.num_AI_services_used
+        
     def get_progress_target(self):
         """
         If the runnable will return some progress info, have this function return a tuple of 
