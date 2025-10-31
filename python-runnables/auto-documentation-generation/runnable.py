@@ -1,12 +1,13 @@
 # This file is the actual code for the Python runnable auto-documentation-generation
-from dataiku.runnables import Runnable
 
-from json import JSONDecodeError, dumps
+import json
 import sys
+from json import dumps
 import traceback
 
 import pandas as pd
 import dataiku
+from dataiku.runnables import Runnable
 from dataikuapi.utils import DataikuException
 import dataikuapi
 
@@ -25,27 +26,62 @@ def is_project_empty(project_handle):
 
 
 def get_dataset_long_description(dataset_handle):
+    """
+    Retrieves the long description of a dataset from its metadata.
+
+    Args:
+        dataset_handle: A handle to the dataset object containing metadata.
+
+    Returns:
+        str: The description of the dataset if it exists in metadata, empty string otherwise.
+    """
     dataset_metadata = dataset_handle.get_metadata()
     try:
-        return dataset_metadata['description']
+        return dataset_metadata["description"]
     except KeyError:
-        return ''
+        return ""
 
 
 def get_dataset_short_description(dataset_handle):
+    """
+    Retrieves the short description of a dataset from its settings.
+
+    Args:
+        dataset_handle: A DSS dataset handle object that provides access to dataset settings
+
+    Returns:
+        str: The short description of the dataset if available, otherwise an empty string
+
+    Example:
+        >>> dataset_handle = dataiku.Dataset("my_dataset").get_dataset_handle()
+        >>> short_desc = get_dataset_short_description(dataset_handle)
+    """
     dataset_settings = dataset_handle.get_settings().get_raw()
     try:
-        return dataset_settings['shortDesc']
+        return dataset_settings["shortDesc"]
     except KeyError:
-        return ''
+        return ""
 
 
 def get_dataset_column_descriptions(dataset_handle):
+    """
+    Extracts column descriptions from a dataset's schema.
+
+    Args:
+        dataset_handle: A DSS dataset handle object containing schema information.
+
+    Returns:
+        list: A list of column comments/descriptions from the dataset schema.
+              Returns an empty string if 'columns' key is not found in schema.
+
+    Raises:
+        KeyError: If schema structure doesn't contain expected 'columns' field.
+    """
     dataset_schema = dataset_handle.get_schema()
     try:
-        return [item["comment"] for item in dataset_schema['columns']]
+        return [item["comment"] for item in dataset_schema["columns"]]
     except KeyError:
-        return ''
+        return ""
 
 
 def dataset_has_full_documentation(project_handle, dataset_id):
@@ -60,21 +96,21 @@ def dataset_has_full_documentation(project_handle, dataset_id):
 
     # project_handle = client.get_project(project_key)
     dataset_handle = project_handle.get_dataset(dataset_id)
-    
+
     if not get_dataset_long_description(dataset_handle):
         # print(f'Dataset {dataset_id} lacks full documentation because empty: Long Description')
         return False
-    
+
     if not get_dataset_short_description(dataset_handle):
         # print(f'Dataset {dataset_id} lacks full documentation because empty: Short Description')
         return False
-    
+
     column_descriptions = get_dataset_column_descriptions(dataset_handle)
 
     if any(not s or not s.strip() for s in column_descriptions):
         # print(f'Dataset {dataset_id} lacks full documentation because empty: Column descriptions')
         return False
-    
+
     # print(f'Dataset {dataset_id} has all description fields filled out.')
     return True
 
@@ -87,7 +123,7 @@ def is_project_description_empty(project_handle):
 
     try:
         md = project_handle.get_metadata()
-        if not md['description']:
+        if not md["description"]:
             return True
     except KeyError:
         return True
@@ -95,7 +131,50 @@ def is_project_description_empty(project_handle):
 
 
 def pretty_print_dict(d):
-    import json
+    """
+    Pretty-print a Python dictionary as JSON to standard output.
+
+    This function formats the given object using json.dump(...) with an indentation
+    of 4 spaces and keys sorted alphabetically, writing the JSON representation to
+    sys.stdout as a side effect.
+
+    Important notes:
+    - As implemented, the call is wrapped in print(json.dump(...)). json.dump writes
+        the JSON to sys.stdout and returns None, so print will then print "None" after
+        the JSON output.
+    - The name `sys` must be available (i.e., `import sys` must have been executed
+        in the module); otherwise a NameError will be raised.
+    - The object `d` must be JSON-serializable; otherwise json.dump will raise a
+        TypeError.
+
+    Parameters
+    ----------
+    d : object
+            The Python object to serialize to JSON (typically a dict). Must be JSON-serializable.
+
+    Returns
+    -------
+    None
+            This function has no meaningful return value; it writes output to stdout.
+
+    Raises
+    ------
+    TypeError
+            If `d` contains objects that are not JSON-serializable.
+    NameError
+            If `sys` is not defined in the current module.
+
+    Examples
+    --------
+    # Ensure sys is imported in the module where this function is defined:
+    pretty_print_dict({'a': 1, 'b': 2})
+    # Expected stdout:
+    # {
+    #     "a": 1,
+    #     "b": 2
+    # }
+    # None  # printed because json.dump(...) returns None and that value is printed
+    """
     print(json.dump(d, fp=sys.stdout, indent=4, sort_keys=True))
 
 
@@ -106,29 +185,33 @@ def flow_zone_has_description(flow_zone_handle):
     """
     try:
         # the auto-generated ones ONLY CREATE THE LONG DESCRIPTION, don't do the short one.
-        flow_zone_settings                   = flow_zone_handle.get_settings().get_raw()
-        flow_zone_description                = flow_zone_settings.get('description', '')
-        flow_zone_description_length         = len(flow_zone_description)
+        flow_zone_settings = flow_zone_handle.get_settings().get_raw()
+        flow_zone_description = flow_zone_settings.get("description", "")
+        # flow_zone_description_length = len(flow_zone_description)
 
         # can't use the "not " version, must use len>0 for some reason.
-        flow_zone_has_a_nonempty_description = len(flow_zone_description) > 0 
+        flow_zone_has_a_nonempty_description = len(flow_zone_description) > 0
 
         return flow_zone_has_a_nonempty_description
-    except JSONDecodeError:
+    except json.JSONDecodeError:
         print(f"[ERROR] Trying to get description for {flow_zone_settings['name']}")
         pretty_print_dict(flow_zone_settings)
         return False
-    
-    
+
+
 def is_flowzone_empty(flowzone_handle):
     """This traps the JSONDecodeError exception that occurs when generate_ai_description is called
     if the flowzone has no datasets or recipes
-    
+
       There has to be at least one recipe or one dataset in order to explain a zone.
 
     """
     for i in flowzone_handle.items:
-        if type(i) in [dataiku.Dataset, dataikuapi.dss.recipe.DSSRecipe, dataikuapi.dss.dataset.DSSDataset]:
+        if type(i) in [
+            dataiku.Dataset,
+            dataikuapi.dss.recipe.DSSRecipe,
+            dataikuapi.dss.dataset.DSSDataset,
+        ]:
             return False
     return True
 
@@ -149,11 +232,10 @@ def read_first_dataset_row(project_key, dataset_name):
 
         return True
 
-    except Exception as e:
+    except Exception:
         # Catch any exception that might occur
+        traceback.print_exc()
         return False
-
-
 
 
 class MyRunnable(Runnable):
@@ -168,59 +250,70 @@ class MyRunnable(Runnable):
         self.project_key = project_key
         self.config = config
         self.plugin_config = plugin_config
-        
-        self.__num_AI_services_used = 0
-        self.LANGUAGE         = self.config['language']
-        self.PROJECT_PURPOSE  = self.config['project_purpose']
-        self.PROJECT_LENGTH   = self.config['project_length']
-        self.SAVE_DESCRIPTION = self.config['save_description']
+
+        self.__num_ai_services_used = 0
+        self.__language = self.config["language"]
+        self.__project_purpose = self.config["project_purpose"]
+        self.__project_length = self.config["project_length"]
+        self.__save_description = self.config["save_description"]
 
         self.client = dataiku.api_client()
-    
-    @property
-    def num_AI_services_used(self):
-        return self.__num_AI_services_used
 
-    
+    @property
+    def num_ai_services_used(self):
+        """Returns the total number of AI services used during the auto documentation process.
+
+        Returns:
+            int: The count of AI services that were utilized
+        """
+        return self.__num_ai_services_used
+
     def get_progress_target(self):
         """
-        If the runnable will return some progress info, have this function return a tuple of 
+        If the runnable will return some progress info, have this function return a tuple of
         (target, unit) where unit is one of: SIZE, FILES, RECORDS, NONE
         """
         return None
-    
+
     def run_projects(self):
         """
         x
         """
-        
-        PROJECTS_LIST    = self.client.list_project_keys()
-        
+
+        projects_list = self.client.list_project_keys()
+
         # iterate through the list of projects
-        for project_key in PROJECTS_LIST:
+        for project_key in projects_list:
             try:
                 project_handle = self.client.get_project(project_key)
 
-                # Ensure that the project meets the requirements for creating AI generated descriptions
+                # Ensure that the project meets the requirements for creating
+                # AI generated descriptions
                 if is_project_empty(project_handle):
-                    print(f"[SKIP] Project must have datasets or recipes in flow, can't create description: {project_key}")
+                    print(
+                        f"[SKIP] Project must have datasets or recipes in flow, can't create description: {project_key}"
+                    )
                     continue
 
                 # Only generate descriptions if there is not one already:
                 if is_project_description_empty(project_handle):
-                    print(f"Project {project_key} has an empty description, generating AI description for it.")
-                    self.__num_AI_services_used += 1
+                    print(
+                        f"Project {project_key} has an empty description, generating AI description for it."
+                    )
+                    self.__num_ai_services_used += 1
 
                     # https://developer.dataiku.com/latest/api-reference/python/projects.html#dataikuapi.dss.project.DSSProject.generate_ai_description
                     project_handle.generate_ai_description(
-                        language=self.LANGUAGE,
-                        purpose=self.PROJECT_PURPOSE,
-                        length=self.PROJECT_LENGTH,
-                        save_description=self.SAVE_DESCRIPTION
+                        language=self.__language,
+                        purpose=self.__project_purpose,
+                        length=self.__project_length,
+                        save_description=self.__save_description,
                     )
 
-            except JSONDecodeError:
-                print(f"[JSONDecodeError] Creating project description for {project_key}")
+            except json.JSONDecodeError:
+                print(
+                    f"[JSONDecodeError] Creating project description for {project_key}"
+                )
                 continue
 
     def run(self, progress_callback):
