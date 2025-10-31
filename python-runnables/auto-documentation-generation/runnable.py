@@ -309,7 +309,7 @@ class MyRunnable(Runnable):
         x
         """
         
-        if self.__autofill_datasets:
+        if not self.__autofill_datasets:
             print("Skipping Datasets since they're not selected")
             return None
 
