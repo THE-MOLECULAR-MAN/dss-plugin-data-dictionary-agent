@@ -171,6 +171,13 @@ class MyRunnable(Runnable):
         self.plugin_config = plugin_config
         
         self.num_AI_services_used = 0
+        self.LANGUAGE         = self.config['language']
+        self.PROJECT_PURPOSE  = self.config['project_purpose']
+        self.PROJECT_LENGTH   = self.config['project_length']
+        self.SAVE_DESCRIPTION = self.config['save_description']
+
+        
+        
         self.client = dataiku.api_client()
         
     def get_progress_target(self):
@@ -184,10 +191,7 @@ class MyRunnable(Runnable):
         """
         x
         """
-        LANGUAGE         = self.config['language']
-        PROJECT_PURPOSE  = self.config['project_purpose']
-        PROJECT_LENGTH   = self.config['project_length']
-        SAVE_DESCRIPTION = self.config['save_description']
+        
         PROJECTS_LIST    = self.client.list_project_keys()
         
         # iterate through the list of projects
@@ -207,10 +211,10 @@ class MyRunnable(Runnable):
 
                     # https://developer.dataiku.com/latest/api-reference/python/projects.html#dataikuapi.dss.project.DSSProject.generate_ai_description
                     project_handle.generate_ai_description(
-                        language=LANGUAGE,
-                        purpose=PROJECT_PURPOSE,
-                        length=PROJECT_LENGTH,
-                        save_description=SAVE_DESCRIPTION
+                        language=self.LANGUAGE,
+                        purpose=self.PROJECT_PURPOSE,
+                        length=self.PROJECT_LENGTH,
+                        save_description=self.SAVE_DESCRIPTION
                     )
 
             except JSONDecodeError:
