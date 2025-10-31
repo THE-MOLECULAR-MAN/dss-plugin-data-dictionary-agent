@@ -261,7 +261,8 @@ class MyRunnable(Runnable):
         self.__save_description        = self.config["save_description"]
         #self.__tagname_aigen           = self.config["tagname_aigen"]
         #self.__tagname_do_not_autofill = self.config["tagname_DoNotAutoFill"]
-        print(f"list of obj to autofill {str(self.config["object_types_to_autofill"])})
+        arr = self.config["object_types_to_autofill"]
+        print(f"list of obj to autofill {str(arr)})
 
 #        ['projects', 'flowzones', 'datasets']
 
