@@ -382,6 +382,12 @@ class MyRunnable(Runnable):
             DataikuException: If there's an error accessing project data or generating descriptions
             json.JSONDecodeError: If there's an error parsing flow zone settings
         """
+        if self.__autofill_flowzones:
+            print("Skipping Flowzones since they're not selected")
+            return None
+
+        
+        
         # Iterate through the list of projects
         for project_key in self.__projects_list:
             project_handle = self.__client.get_project(project_key)
