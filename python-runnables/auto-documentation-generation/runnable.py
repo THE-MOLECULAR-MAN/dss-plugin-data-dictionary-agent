@@ -261,8 +261,8 @@ class MyRunnable(Runnable):
         self.__save_description        = self.config["save_description"]
         #self.__tagname_aigen           = self.config["tagname_aigen"]
         #self.__tagname_do_not_autofill = self.config["tagname_DoNotAutoFill"]
-        arr = self.config["object_types_to_autofill"]
-        print(f"list of obj to autofill {str(arr)}")
+        #arr = self.config["object_types_to_autofill"]
+        #print(f"list of obj to autofill {str(arr)}")
 
 #        ['projects', 'flowzones', 'datasets']
 
@@ -270,7 +270,7 @@ class MyRunnable(Runnable):
         self.__autofill_flowzones = "flowzones" in self.config["object_types_to_autofill"]
         self.__autofill_datasets  = "datasets"  in self.config["object_types_to_autofill"]
         
-        print(f"autofill proj: {self.__autofill_projects}")
+        #print(f"autofill proj: {self.__autofill_projects}")
 
         self.__client = dataiku.api_client()
         
