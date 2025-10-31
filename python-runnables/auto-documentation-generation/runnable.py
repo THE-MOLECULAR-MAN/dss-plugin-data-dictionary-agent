@@ -276,7 +276,6 @@ class MyRunnable(Runnable):
         
         # multi-select
         pf = self.config["project_filter"] # all_projects, project_tags, project_folder
-        
 
         if pf == "this_project_only":
             self.__projects_list = [self.project_key]
