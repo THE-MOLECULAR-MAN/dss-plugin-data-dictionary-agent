@@ -112,7 +112,9 @@
                     { "value": "business_oriented", "label": "Business oriented"},
                     { "value": "executive", "label": "Executive"}
               ],
-              "mandatory": true
+              "mandatory": true,
+              "visibilityCondition": "model.object_types_to_autofill.includes('flowzones')"
+
           },
         {
               "name": "flowzone_length",
@@ -124,7 +126,8 @@
                     { "value": "medium", "label": "Medium"},
                     { "value": "high", "label": "Long"}
               ],
-              "mandatory": true
+              "mandatory": true,
+              "visibilityCondition": "model.object_types_to_autofill.includes('flowzones')"
           }
        /* {
             "name": "tagname_aigen",
