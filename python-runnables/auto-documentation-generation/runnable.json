@@ -119,8 +119,8 @@
                     { "value": "high", "label": "Long"}
               ],
               "mandatory": true
-          },
-        {
+          }
+       /* {
             "name": "tagname_aigen",
             "label": "Tag name to indicate it was AI generated",
             "type": "STRING",
@@ -132,6 +132,7 @@
             "type": "STRING",
             "defaultValue": "Do_not_fill_description_using_AI"
         }
+        */
     ],
 
     /* list of required permissions on the project to see/run the runnable */
