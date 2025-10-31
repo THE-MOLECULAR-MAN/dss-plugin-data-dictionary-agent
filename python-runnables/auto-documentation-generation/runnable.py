@@ -259,8 +259,8 @@ class MyRunnable(Runnable):
         self.__project_purpose         = self.config["project_purpose"]
         self.__project_length          = self.config["project_length"]
         self.__save_description        = self.config["save_description"]
-        self.__tagname_aigen           = self.config["tagname_aigen"]
-        self.__tagname_do_not_autofill = self.config["tagname_DoNotAutoFill"]
+        #self.__tagname_aigen           = self.config["tagname_aigen"]
+        #self.__tagname_do_not_autofill = self.config["tagname_DoNotAutoFill"]
 
         self.__autofill_projects  = "projects"  in self.config["object_types_to_autofill"]
         self.__autofill_flowzones = "flowzones" in self.config["object_types_to_autofill"]
