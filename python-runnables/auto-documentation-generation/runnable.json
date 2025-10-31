@@ -36,6 +36,7 @@
               "name": "project_filter",
               "label": "Project filter",
               "type": "SELECT",
+              "defaultValue": "this_project_only",
               "selectChoices" : [
                    { "value": "this_project_only", "label": "This project only"},
                   { "value": "all_projects", "label": "All projects (no filter)"}
