@@ -84,7 +84,7 @@
                     { "value": "executive", "label": "Executive"}
               ],
               "mandatory": false,
-              "visibilityCondition": "'project' in model.object_types_to_autofill"
+              "visibilityCondition": "'project' == model.object_types_to_autofill"
 
           },
         {
