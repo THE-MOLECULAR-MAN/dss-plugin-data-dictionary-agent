@@ -83,7 +83,9 @@
                     { "value": "business_oriented", "label": "Business oriented"},
                     { "value": "executive", "label": "Executive"}
               ],
-              "mandatory": true
+              "mandatory": false,
+              "visibilityCondition": "'project' in model.object_types_to_autofill"
+
           },
         {
               "name": "project_length",
