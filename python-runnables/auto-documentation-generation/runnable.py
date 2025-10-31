@@ -448,7 +448,7 @@ class MyRunnable(Runnable):
         """
         x
         """
-        if self.__autofill_projects:
+        if not self.__autofill_projects:
             print("Skipping Projects since they're not selected")
             return None
 
