@@ -1,11 +1,14 @@
+"""docstring TBD"""
+
 # This file is the actual code for the Python runnable auto-documentation-generation
 
 import json
 import sys
-from json import dumps
+
+# from json import dumps
 import traceback
 
-import pandas as pd
+# import pandas as pd
 import dataiku
 from dataiku.runnables import Runnable
 from dataikuapi.utils import DataikuException
@@ -257,7 +260,10 @@ class MyRunnable(Runnable):
         self.__project_length = self.config["project_length"]
         self.__save_description = self.config["save_description"]
 
-        self.client = dataiku.api_client()
+        # self.__projects_list = self.config.get("projects_list", [])
+
+        self.__client = dataiku.api_client()
+        self.__projects_list = self.client.list_project_keys()
 
     @property
     def num_ai_services_used(self):
@@ -275,17 +281,146 @@ class MyRunnable(Runnable):
         """
         return None
 
+    def run_datasets(self):
+        """
+        x
+        """
+        # iterate through projects
+        for project_key in self.__projects_list:
+            project_handle = self.__client.get_project(project_key)
+
+            # iterate through all datasets in that project
+            for dataset in project_handle.list_datasets():
+                dataset_id = dataset["name"]
+                dataset_handle = project_handle.get_dataset(dataset_id)
+
+                if not dataset_handle.exists():
+                    print(
+                        f"[SKIP] dataset does not exist:   {project_key} - {dataset_id}"
+                    )
+                    continue
+
+                # check if there is no schema
+                if len(dataset["schema"].get("columns", "")) == 0:
+                    print(
+                        f"[SKIP] dataset has empty schema: {project_key} - {dataset_id}"
+                    )
+                    continue
+
+                # skip this dataset if it already has all of the description fields filled out
+                if not dataset_has_full_documentation(project_handle, dataset_id):
+
+                    # test if the first row can be read. VERY IMPORTANT to filter out a lot of
+                    # wasted AI Services calls.
+                    if not read_first_dataset_row(project_key, dataset_id):
+                        print(
+                            f"[SKIP] dataset could not be read: {project_key} - {dataset_id}"
+                        )
+                        continue
+
+                    print(
+                        f"Auto-generating documentation for {project_key}'s dataset: {dataset_id} ..."
+                    )
+                    try:
+                        # always increment this BEFORE calling generate_ai_description since
+                        # generate_ai_description often raises an exception
+                        self.__num_ai_services_used += 1
+
+                        # this blocks execution, doesn't utilize Futures/JobID system
+                        # actually generate and save the description
+                        _ = dataset_handle.generate_ai_description(
+                            language=self.__language,
+                            save_description=self.__save_description,
+                        )
+
+                    #                 if SAVE_DESCRIPTION and dataset_has_full_documentation(project_handle, dataset_id):
+                    #                     print(f"Successfully filled out all fields for {dataset_id}")
+                    #                 else:
+                    #                     print(f"Attempted to fill in description for dataset, but failed to take effect: {dataset_id}")
+                    #                     print(x)
+
+                    except DataikuException as e:
+                        # there are so many different types of exceptions that occur
+                        # java.lang.IllegalArgumentException: Column not found in schema:
+                        print(
+                            f"[ERROR] Exception {e} when autofilling: {project_key} - {dataset_id}"
+                        )
+                        continue
+
+    def run_flowzones(self):
+        """
+        Iterates through projects and their flow zones to generate AI descriptions where needed.
+
+        This method processes each project in the projects list, examining their flow zones.
+        For each flow zone that meets the criteria (non-empty and lacking a description),
+        it triggers AI-powered description generation.
+
+        Parameters:
+            None
+
+        Returns:
+            None
+
+        Side Effects:
+            - Updates flow zone descriptions in Dataiku projects
+            - Increments self.__num_ai_services_used counter
+            - Prints status messages to console
+
+        Raises:
+            DataikuException: If there's an error accessing project data or generating descriptions
+            json.JSONDecodeError: If there's an error parsing flow zone settings
+        """
+        # Iterate through the list of projects
+        for project_key in self.__projects_list:
+            project_handle = self.__client.get_project(project_key)
+            flow_handle = project_handle.get_flow()
+
+            # Iterate through each flow zone in a specific project
+            for flow_zone_handle in flow_handle.list_zones():
+                try:
+                    # Ensure that the flow zone meets the requirements for
+                    # AI-Gen descriptions before attempting to have AI
+                    # generate the description.
+                    if is_flowzone_empty(flow_zone_handle):
+                        print(
+                            f"[SKIP] Flow zone must have dataset or recipe in it to autogenerate description: {project_key} - {flow_zone_name}"
+                        )
+                        continue
+
+                    # get the settings and name of the flow zone
+                    flow_zone_settings = flow_zone_handle.get_settings().get_raw()
+                    flow_zone_name = flow_zone_settings.get("name", "")
+
+                    # only have AI write the description if there is not one there already
+                    if not flow_zone_has_description(flow_zone_handle):
+                        print(
+                            f"[CREATE] Generating flow zone documentation for {project_key} - {flow_zone_name}"
+                        )
+                        self.__num_ai_services_used += 1
+                        flow_zone_handle.generate_ai_description(
+                            language=self.__language,
+                            purpose=self.__flowzone_purpose,
+                            length=self.__flowzone_length,
+                            save_description=self.__save_description,
+                        )
+                #             else:
+                #                 print(f"[SKIP] Flow zone already has a description: {project_key} - {flow_zone_name}")
+                except (DataikuException, json.JSONDecodeError):
+                    print(
+                        f"[ERROR] Creating flow zone description for {project_key} - {flow_zone_name}"
+                    )
+                    pretty_print_dict(flow_zone_settings)
+                    continue
+
     def run_projects(self):
         """
         x
         """
 
-        projects_list = self.client.list_project_keys()
-
         # iterate through the list of projects
-        for project_key in projects_list:
+        for project_key in self.__projects_list:
             try:
-                project_handle = self.client.get_project(project_key)
+                project_handle = self.__client.get_project(project_key)
 
                 # Ensure that the project meets the requirements for creating
                 # AI generated descriptions
@@ -322,6 +457,7 @@ class MyRunnable(Runnable):
         The progress_callback is a function expecting 1 value: current progress
         """
         # raise Exception("unimplemented")
-        # client = dataiku.api_client()
+        self.run_datasets()
+        self.run_flowzones()
         self.run_projects()
         return None
