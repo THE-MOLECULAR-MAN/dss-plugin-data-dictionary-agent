@@ -242,7 +242,7 @@ def read_first_dataset_row(project_key, dataset_name):
 
 
 class MyRunnable(Runnable):
-    """The base interface for a Python runnable"""
+    """Base class for Dataiku DSS Macro in a plugin"""
 
     def __init__(self, project_key, config, plugin_config):
         """
