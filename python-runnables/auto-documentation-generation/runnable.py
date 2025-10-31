@@ -269,7 +269,7 @@ class MyRunnable(Runnable):
         self.__autofill_flowzones = "flowzones" in self.config["object_types_to_autofill"]
         self.__autofill_datasets  = "datasets"  in self.config["object_types_to_autofill"]
         
-        print(self.__autofill_projects)
+        print(f"autofill proj: {self.__autofill_projects}")
 
         self.__client = dataiku.api_client()
         
