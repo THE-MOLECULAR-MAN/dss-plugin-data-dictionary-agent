@@ -179,7 +179,7 @@ class MyRunnable(Runnable):
         self.client = dataiku.api_client()
     
     @property
-    def _num_AI_services_used(self):
+    def num_AI_services_used(self):
         return self._num_AI_services_used
         
     def get_progress_target(self):
