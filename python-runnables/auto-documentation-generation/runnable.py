@@ -269,9 +269,6 @@ class MyRunnable(Runnable):
         # multi-select
         pf = self.config["project_filter"] # all_projects, project_tags, project_folder
 
-        
-        
-        
         # self.__projects_list = self.config.get("projects_list", [])
 
         self.__client = dataiku.api_client()
