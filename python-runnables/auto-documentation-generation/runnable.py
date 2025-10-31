@@ -270,7 +270,6 @@ class MyRunnable(Runnable):
         self.__tagname_aigen           = self.config["tagname_aigen"]
         self.__tagname_do_not_autofill = self.config["tagname_DoNotAutoFill"]
         
-        tagname_DoNotAutoFill
         
         
         # self.__projects_list = self.config.get("projects_list", [])
