@@ -176,8 +176,6 @@ class MyRunnable(Runnable):
         self.PROJECT_LENGTH   = self.config['project_length']
         self.SAVE_DESCRIPTION = self.config['save_description']
 
-        
-        
         self.client = dataiku.api_client()
         
     def get_progress_target(self):
