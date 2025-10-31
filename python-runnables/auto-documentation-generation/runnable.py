@@ -177,8 +177,9 @@ class MyRunnable(Runnable):
         self.SAVE_DESCRIPTION = self.config['save_description']
 
         self.client = dataiku.api_client()
-        
-    def get_AI_services_used_count(self):
+    
+    @property
+    def _num_AI_services_used(self):
         return self._num_AI_services_used
         
     def get_progress_target(self):
