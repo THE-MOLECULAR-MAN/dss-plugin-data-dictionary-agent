@@ -263,6 +263,8 @@ class MyRunnable(Runnable):
         #self.__tagname_do_not_autofill = self.config["tagname_DoNotAutoFill"]
         print(self.config["object_types_to_autofill"])
 
+#        ['projects', 'flowzones', 'datasets']
+
         self.__autofill_projects  = "projects"  in self.config["object_types_to_autofill"]
         self.__autofill_flowzones = "flowzones" in self.config["object_types_to_autofill"]
         self.__autofill_datasets  = "datasets"  in self.config["object_types_to_autofill"]
