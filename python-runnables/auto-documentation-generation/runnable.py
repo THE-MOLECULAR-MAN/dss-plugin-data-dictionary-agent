@@ -269,14 +269,15 @@ class MyRunnable(Runnable):
         self.__client = dataiku.api_client()
         
         # multi-select
-        # pf = self.config["project_filter"] # all_projects, project_tags, project_folder
+        pf = self.config["project_filter"] # all_projects, project_tags, project_folder
+        
 
         if self.config["project_filter"] == "this_project_only":
             self.__projects_list = [self.project_key]
         elif self.config["project_filter"] == "all_projects":
             self.__projects_list = self.__client.list_project_keys()
         else:
-            print(f"[WARNING] invalid project_filter: {self.config["project_filter"]} Defaulting to this project only")
+            print(f"[WARNING] invalid project_filter: {} Defaulting to this project only")
             self.__projects_list = [self.project_key]
 
     @property
