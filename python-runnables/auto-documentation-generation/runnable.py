@@ -269,7 +269,7 @@ class MyRunnable(Runnable):
         self.__client = dataiku.api_client()
         
         # multi-select
-        pf = self.config["project_filter"] # all_projects, project_tags, project_folder
+        # pf = self.config["project_filter"] # all_projects, project_tags, project_folder
 
         self.__projects_list = self.client.list_project_keys()
 
