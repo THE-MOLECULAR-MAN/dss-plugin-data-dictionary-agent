@@ -3,7 +3,7 @@
     "id": "data-dictionary-agent",
 
     // It is highly recommended to use Semantic Versioning
-    "version": "0.1.2",
+    "version": "0.1.3",
 
     // Meta data for display purposes:
     "meta": {
