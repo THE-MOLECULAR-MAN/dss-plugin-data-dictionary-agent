@@ -193,7 +193,7 @@ class MyRunnable(Runnable):
                     # generate the description.
                     if is_flowzone_empty(flow_zone_handle):
                         print(
-                            f"[SKIP] Flow zone must have dataset or recipe in it to autogenerate description: {project_key} - {flow_zone_name}"
+                            f"[SKIP] Flow zone must have dataset or recipe in it to autogenerate description: {project_key}"
                         )
                         continue
 
