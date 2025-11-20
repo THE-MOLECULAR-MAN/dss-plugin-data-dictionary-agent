@@ -423,10 +423,11 @@ class MyRunnable(Runnable):
 
                     # get the settings and name of the flow zone
                     flow_zone_settings = flow_zone_handle.get_settings().get_raw()
-                    print(f"run_flowzones - settings")                        
+                    print(f"run_flowzones - flow_zone_settings: {flow_zone_settings}"
 
                     flow_zone_name = flow_zone_settings.get("name", "")
-
+                    print(f"run_flowzones - flow_zone_name: {flow_zone_name}"
+                          
                     # only have AI write the description if there is not one there already
                     if not flow_zone_has_description(flow_zone_handle):
                         print(
