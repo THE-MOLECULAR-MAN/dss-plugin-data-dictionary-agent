@@ -437,7 +437,7 @@ class MyRunnable(Runnable):
                         self.__num_ai_services_used += 1
                         flow_zone_handle.generate_ai_description(
                             language=self.__language,
-                            purpose=self.__flowzone_purpose,
+                            # purpose=self.__flowzone_purpose,
                             length=self.__flowzone_length,
                             save_description=self.__save_description,
                         )
