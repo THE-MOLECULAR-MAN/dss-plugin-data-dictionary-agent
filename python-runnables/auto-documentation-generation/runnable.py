@@ -436,9 +436,9 @@ class MyRunnable(Runnable):
                         )
                 #             else:
                 #                 print(f"[SKIP] Flow zone already has a description: {project_key} - {flow_zone_name}")
-                except (DataikuException, json.JSONDecodeError):
+                except (DataikuException, json.JSONDecodeError) as e:
                     print(
-                        f"[ERROR] Creating flow zone description for {project_key} - {flow_zone_name}"
+                        f"[ERROR] Creating flow zone description for {project_key} - {flow_zone_name}: {e}"
                     )
                     pretty_print_dict(flow_zone_settings)
                     continue
