@@ -423,7 +423,7 @@ class MyRunnable(Runnable):
 
                     # get the settings and name of the flow zone
                     flow_zone_settings = flow_zone_handle.get_settings().get_raw()
-                    print(f"run_flowzones - flow_zone_settings: {flow_zone_settings}"
+                    print(f"run_flowzones - flow_zone_settings: {flow_zone_settings}")
 
                     flow_zone_name = flow_zone_settings.get("name", "")
                     print(f"run_flowzones - flow_zone_name: {flow_zone_name}"
