@@ -433,6 +433,7 @@ class MyRunnable(Runnable):
                         print(
                             f"[CREATE] Generating flow zone documentation for {project_key} - {flow_zone_name}"
                         )
+                        # bug is below here:
                         self.__num_ai_services_used += 1
                         flow_zone_handle.generate_ai_description(
                             language=self.__language,
