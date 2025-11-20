@@ -440,8 +440,8 @@ class MyRunnable(Runnable):
                             length=self.__flowzone_length,
                             save_description=self.__save_description,
                         )
-                #             else:
-                #                 print(f"[SKIP] Flow zone already has a description: {project_key} - {flow_zone_name}")
+                    else:
+                        print(f"[SKIP] Flow zone already has a description: {project_key} - {flow_zone_name}")
                 except (DataikuException, json.JSONDecodeError) as e:
                     print(
                         f"[ERROR] Creating flow zone description for {project_key} - {flow_zone_name}: {e}"
