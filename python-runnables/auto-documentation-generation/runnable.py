@@ -421,15 +421,15 @@ class MyRunnable(Runnable):
                             f"[SKIP] Flow zone must have dataset or recipe in it to autogenerate description: {project_key} - {flow_zone_name}"
                         )
                         continue
-                    else:
-                        print(f"run_flowzones - flow zone is not empty")                        
+                    #else:
+                    #    print(f"run_flowzones - flow zone is not empty")                        
 
                     # get the settings and name of the flow zone
                     flow_zone_settings = flow_zone_handle.get_settings().get_raw()
-                    print(f"run_flowzones - flow_zone_settings: {flow_zone_settings}")
+                    #print(f"run_flowzones - flow_zone_settings: {flow_zone_settings}")
 
                     flow_zone_name = flow_zone_settings.get("name", "")
-                    print(f"run_flowzones - flow_zone_name: {flow_zone_name}")
+                    #print(f"run_flowzones - flow_zone_name: {flow_zone_name}")
                           
                     # only have AI write the description if there is not one there already
                     if not flow_zone_has_description(flow_zone_handle):
@@ -444,15 +444,14 @@ class MyRunnable(Runnable):
                             length=self.__flowzone_length,
                             save_description=self.__save_description,
                         )
-                    else:
-                        print(f"[SKIP] Flow zone already has a description: {project_key} - {flow_zone_name}")
+                    #else:
+                    #    print(f"[SKIP] Flow zone already has a description: {project_key} - {flow_zone_name}")
                 except (DataikuException, json.JSONDecodeError) as e:
                     print(
                         f"[ERROR] Creating flow zone description for {project_key} - {flow_zone_name}: {e}"
                     )
                     pretty_print_dict(flow_zone_settings)
                     continue
-                print(f"run_flowzones - end of loop")
 
     def run_projects(self):
         """
