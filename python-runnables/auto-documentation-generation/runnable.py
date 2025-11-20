@@ -198,8 +198,8 @@ class MyRunnable(Runnable):
                         continue
 
                     # get the settings and name of the flow zone
-                    flow_zone_settings = flow_zone_handle.get_settings().get_raw()
-                    flow_zone_name = flow_zone_settings.get("name", "") # may throw exception
+                    flow_zone_settings = flow_zone_handle.get_settings().get_raw() # may throw exception?
+                    flow_zone_name = flow_zone_settings.get("name", "") # may throw exception?
                           
                     # only have AI write the description if there is not one there already
                     if not flow_zone_has_description(flow_zone_handle):
