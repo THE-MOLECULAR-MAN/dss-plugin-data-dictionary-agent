@@ -205,7 +205,7 @@ class MyRunnable(Runnable):
                     # only have AI write the description if there is not one there already
                     if not flow_zone_has_description(flow_zone_handle):
                         print(
-                            f"[CREATE] Generating flow zone documentation for {project_key} - {flow_zone_name}"
+                            f"[CREATE] Generating flow zone documentation for {project_key}"
                         )
                         # bug is below here:
                         self.__num_ai_services_used += 1
@@ -216,7 +216,7 @@ class MyRunnable(Runnable):
                             save_description=self.__save_description,
                         )
                     #else:
-                    #    print(f"[SKIP] Flow zone already has a description: {project_key} - {flow_zone_name}")
+                    #    print(f"[SKIP] Flow zone already has a description: {project_key}")
                 except (DataikuException, json.JSONDecodeError) as e:
                     print(
                         f"[ERROR] Creating flow zone description for {project_key} {e}"
