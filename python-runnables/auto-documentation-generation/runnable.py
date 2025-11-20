@@ -415,7 +415,6 @@ class MyRunnable(Runnable):
                     # Ensure that the flow zone meets the requirements for
                     # AI-Gen descriptions before attempting to have AI
                     # generate the description.
-                    print(f"run_flowzones top of loop - {flow_zone_handle}")
                     if is_flowzone_empty(flow_zone_handle):
                         print(
                             f"[SKIP] Flow zone must have dataset or recipe in it to autogenerate description: {project_key} - {flow_zone_name}"
