@@ -257,7 +257,10 @@ class MyRunnable(Runnable):
         self.__num_ai_services_used = 0
         self.__language                = self.config["language"]
         self.__project_purpose         = self.config["project_purpose"]
+
         self.__project_length          = self.config["project_length"]
+        self.__flowzone_purpose        = self.config["flowzone_purpose"]
+        self.__flowzone_length         = self.config["flowzone_length"]
         self.__save_description        = self.config["save_description"]
         #self.__tagname_aigen           = self.config["tagname_aigen"]
         #self.__tagname_do_not_autofill = self.config["tagname_DoNotAutoFill"]
@@ -421,12 +424,13 @@ class MyRunnable(Runnable):
                     # get the settings and name of the flow zone
                     flow_zone_settings = flow_zone_handle.get_settings().get_raw()
                     flow_zone_name = flow_zone_settings.get("name", "")
-
+                          
                     # only have AI write the description if there is not one there already
                     if not flow_zone_has_description(flow_zone_handle):
                         print(
                             f"[CREATE] Generating flow zone documentation for {project_key} - {flow_zone_name}"
                         )
+                        # bug is below here:
                         self.__num_ai_services_used += 1
                         flow_zone_handle.generate_ai_description(
                             language=self.__language,
@@ -434,11 +438,11 @@ class MyRunnable(Runnable):
                             length=self.__flowzone_length,
                             save_description=self.__save_description,
                         )
-                #             else:
-                #                 print(f"[SKIP] Flow zone already has a description: {project_key} - {flow_zone_name}")
-                except (DataikuException, json.JSONDecodeError):
+                    #else:
+                    #    print(f"[SKIP] Flow zone already has a description: {project_key} - {flow_zone_name}")
+                except (DataikuException, json.JSONDecodeError) as e:
                     print(
-                        f"[ERROR] Creating flow zone description for {project_key} - {flow_zone_name}"
+                        f"[ERROR] Creating flow zone description for {project_key} - {flow_zone_name}: {e}"
                     )
                     pretty_print_dict(flow_zone_settings)
                     continue
