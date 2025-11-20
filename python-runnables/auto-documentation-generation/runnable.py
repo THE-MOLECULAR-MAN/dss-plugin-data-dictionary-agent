@@ -418,6 +418,8 @@ class MyRunnable(Runnable):
                             f"[SKIP] Flow zone must have dataset or recipe in it to autogenerate description: {project_key} - {flow_zone_name}"
                         )
                         continue
+                    else:
+                        print(f"run_flowzones - flow zone is not empty")                        
 
                     # get the settings and name of the flow zone
                     flow_zone_settings = flow_zone_handle.get_settings().get_raw()
