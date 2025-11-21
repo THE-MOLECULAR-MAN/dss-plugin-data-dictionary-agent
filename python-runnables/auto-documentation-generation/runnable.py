@@ -85,7 +85,7 @@ class MyRunnable(Runnable):
         """
         # this function runs once and only once, cannot dynamically update it.
         print('get_progress_target RAN')
-        return (self.__inscope, 'RECORDS')
+#         return (self.__inscope, 'RECORDS')
         return (100, None)
     
     def run_datasets(self, progress_callback):
