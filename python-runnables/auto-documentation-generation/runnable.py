@@ -232,7 +232,7 @@ class MyRunnable(Runnable):
                             length=self.__flowzone_length,
                             save_description=self.__save_description,
                         )
-                        status = 'updated'                        
+                        status = 'updated'
                     else:
                         print(f"[SKIP] Flow zone already has a description: {project_key}")
                         status = 'skipped - already has description'
