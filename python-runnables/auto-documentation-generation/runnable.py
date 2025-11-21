@@ -157,7 +157,7 @@ class MyRunnable(Runnable):
                             print(
                                 f"[ERROR] Exception {e} when autofilling: {project_key} - {dataset_id}"
                             )
-                            status = 'error - exception'
+                            status = 'error - DataikuException'
                             continue
                 finally:
                     self.__progress += 1
