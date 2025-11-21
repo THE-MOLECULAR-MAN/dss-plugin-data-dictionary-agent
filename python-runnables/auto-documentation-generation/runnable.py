@@ -98,72 +98,74 @@ class MyRunnable(Runnable):
 
             # iterate through all datasets in that project
             for dataset in project_handle.list_datasets():
-                dataset_id = dataset["name"]
-                dataset_handle = project_handle.get_dataset(dataset_id)
+                try:
+                    dataset_id = dataset["name"]
+                    dataset_handle = project_handle.get_dataset(dataset_id)
 
-                if not dataset_handle.exists():
-                    print(
-                        f"[SKIP] dataset does not exist:   {project_key} - {dataset_id}"
-                    )
+                    if not dataset_handle.exists():
+                        print(
+                            f"[SKIP] dataset does not exist:   {project_key} - {dataset_id}"
+                        )
+                        self.__progress += 1
+                        progress_callback(self.__progress)
+                        continue
+
+                    # check if there is no schema
+                    if len(dataset["schema"].get("columns", "")) == 0:
+                        print(
+                            f"[SKIP] dataset has empty schema: {project_key} - {dataset_id}"
+                        )
+                        self.__progress += 1
+                        progress_callback(self.__progress)                    
+                        continue
+
+                    # skip this dataset if it already has all of the description fields filled out
+                    if not dataset_has_full_documentation(project_handle, dataset_id):
+
+                        # test if the first row can be read. VERY IMPORTANT to filter out a lot of
+                        # wasted AI Services calls.
+                        if not read_first_dataset_row(project_key, dataset_id):
+                            print(
+                                f"[SKIP] dataset could not be read: {project_key} - {dataset_id}"
+                            )
+                            self.__progress += 1
+                            progress_callback(self.__progress)
+                            continue
+
+                        print(
+                            f"Auto-generating documentation for {project_key}'s dataset: {dataset_id} ..."
+                        )
+                        try:
+                            # always increment this BEFORE calling generate_ai_description since
+                            # generate_ai_description often raises an exception
+                            self.__num_ai_services_used += 1
+
+                            # this blocks execution, doesn't utilize Futures/JobID system
+                            # actually generate and save the description
+                            _ = dataset_handle.generate_ai_description(
+                                language=self.__language,
+                                save_description=self.__save_description,
+                            )
+
+                        #                 if SAVE_DESCRIPTION and dataset_has_full_documentation(project_handle, dataset_id):
+                        #                     print(f"Successfully filled out all fields for {dataset_id}")
+                        #                 else:
+                        #                     print(f"Attempted to fill in description for dataset, but failed to take effect: {dataset_id}")
+                        #                     print(x)
+
+                        except DataikuException as e:
+                            # there are so many different types of exceptions that occur
+                            # java.lang.IllegalArgumentException: Column not found in schema:
+                            print(
+                                f"[ERROR] Exception {e} when autofilling: {project_key} - {dataset_id}"
+                            )
+                            self.__progress += 1
+                            progress_callback(self.__progress)
+
+                            continue
+                finally:                        
                     self.__progress += 1
                     progress_callback(self.__progress)
-                    continue
-
-                # check if there is no schema
-                if len(dataset["schema"].get("columns", "")) == 0:
-                    print(
-                        f"[SKIP] dataset has empty schema: {project_key} - {dataset_id}"
-                    )
-                    self.__progress += 1
-                    progress_callback(self.__progress)                    
-                    continue
-
-                # skip this dataset if it already has all of the description fields filled out
-                if not dataset_has_full_documentation(project_handle, dataset_id):
-
-                    # test if the first row can be read. VERY IMPORTANT to filter out a lot of
-                    # wasted AI Services calls.
-                    if not read_first_dataset_row(project_key, dataset_id):
-                        print(
-                            f"[SKIP] dataset could not be read: {project_key} - {dataset_id}"
-                        )
-                        self.__progress += 1
-                        progress_callback(self.__progress)
-                        continue
-
-                    print(
-                        f"Auto-generating documentation for {project_key}'s dataset: {dataset_id} ..."
-                    )
-                    try:
-                        # always increment this BEFORE calling generate_ai_description since
-                        # generate_ai_description often raises an exception
-                        self.__num_ai_services_used += 1
-
-                        # this blocks execution, doesn't utilize Futures/JobID system
-                        # actually generate and save the description
-                        _ = dataset_handle.generate_ai_description(
-                            language=self.__language,
-                            save_description=self.__save_description,
-                        )
-
-                    #                 if SAVE_DESCRIPTION and dataset_has_full_documentation(project_handle, dataset_id):
-                    #                     print(f"Successfully filled out all fields for {dataset_id}")
-                    #                 else:
-                    #                     print(f"Attempted to fill in description for dataset, but failed to take effect: {dataset_id}")
-                    #                     print(x)
-
-                    except DataikuException as e:
-                        # there are so many different types of exceptions that occur
-                        # java.lang.IllegalArgumentException: Column not found in schema:
-                        print(
-                            f"[ERROR] Exception {e} when autofilling: {project_key} - {dataset_id}"
-                        )
-                        self.__progress += 1
-                        progress_callback(self.__progress)
-                        
-                        continue
-                self.__progress += 1
-                progress_callback(self.__progress)
 
 
     def run_flowzones(self, progress_callback):
