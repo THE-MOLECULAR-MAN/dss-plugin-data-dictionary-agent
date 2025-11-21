@@ -79,7 +79,7 @@ class MyRunnable(Runnable):
         If the runnable will return some progress info, have this function return a tuple of
         (target, unit) where unit is one of: SIZE, FILES, RECORDS, NONE
         """
-        # this function runs once and only once, cannot dynamically update the target.
+        # this function runs once and only once, and unfortunately it cannot dynamically update the target.
 #         return (self.__inscope, 'RECORDS')
         return (1, None)
         # return None # this disables the status updates
