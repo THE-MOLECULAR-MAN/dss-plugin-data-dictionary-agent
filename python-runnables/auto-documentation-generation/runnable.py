@@ -285,9 +285,6 @@ class MyRunnable(Runnable):
         Do stuff here. Can return a string or raise an exception.
         The progress_callback is a function expecting 1 value: current progress
         """
-        # raise Exception("unimplemented")
-        #from pprint import pprint
-        #pprint(vars(self))
         self.run_datasets(progress_callback)
         self.run_flowzones(progress_callback)
         self.run_projects(progress_callback)
