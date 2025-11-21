@@ -150,6 +150,7 @@ class MyRunnable(Runnable):
                         #                 else:
                         #                     print(f"Attempted to fill in description for dataset, but failed to take effect: {dataset_id}")
                         #                     print(x)
+                        
 
                         except DataikuException as e:
                             # there are so many different types of exceptions that occur
@@ -159,6 +160,8 @@ class MyRunnable(Runnable):
                             )
                             status = 'error - DataikuException'
                             continue
+                    else:
+                        status = 'skipped - dataset already had description'
                 finally:
                     self.__progress += 1
                     progress_callback(self.__progress)
