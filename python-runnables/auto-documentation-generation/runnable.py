@@ -67,7 +67,7 @@ class MyRunnable(Runnable):
               
         # print(self)
         
-    def get_total_scope_size(self):
+    def set_total_scope_size(self):
         try:
             self.__inscope = 0
 
