@@ -239,9 +239,6 @@ class MyRunnable(Runnable):
                     else:
                         status = 'skipped - already has description'
                 except (DataikuException, json.JSONDecodeError) as e:
-                    print(
-                        f"[ERROR] Creating flow zone description for {project_key} {e}"
-                    )
                     status = 'Error - DataikuException or JSONDecodeError'
                     pretty_print_dict(flow_zone_settings)
                     continue
