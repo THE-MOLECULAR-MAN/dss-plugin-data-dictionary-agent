@@ -68,7 +68,7 @@ class MyRunnable(Runnable):
         # print(self)
         
     def get_total_scope_size(self):
-        total = 0
+        self.__inscope = 0
         
         if self.__autofill_projects:
             self.__inscope += len(self.__projects_list)  
