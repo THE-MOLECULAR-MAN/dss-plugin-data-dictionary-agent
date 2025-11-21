@@ -105,7 +105,7 @@ class MyRunnable(Runnable):
             for dataset in project_handle.list_datasets():
                 try:
                     rt_record = []
-                    status = 'start'     
+                    status = 'start'
                     rt_record.append('dataset')
 
                     dataset_id = dataset["name"]
@@ -116,6 +116,7 @@ class MyRunnable(Runnable):
                         print(
                             f"[SKIP] dataset does not exist:   {project_key} - {dataset_id}"
                         )
+                        status = 'skipped - dataset does not exist'
                         continue
 
                     # check if there is no schema
@@ -123,6 +124,7 @@ class MyRunnable(Runnable):
                         print(
                             f"[SKIP] dataset has empty schema: {project_key} - {dataset_id}"
                         )
+                        status = 'skipped - no schema'
                         continue
 
                     # skip this dataset if it already has all of the description fields filled out
@@ -134,6 +136,7 @@ class MyRunnable(Runnable):
                             print(
                                 f"[SKIP] dataset could not be read: {project_key} - {dataset_id}"
                             )
+                            status = 'skipped - dataset could not be read'
                             continue
 
                         print(
@@ -150,6 +153,7 @@ class MyRunnable(Runnable):
                                 language=self.__language,
                                 save_description=self.__save_description,
                             )
+                            status = 'filled'
 
                         #                 if SAVE_DESCRIPTION and dataset_has_full_documentation(project_handle, dataset_id):
                         #                     print(f"Successfully filled out all fields for {dataset_id}")
@@ -163,6 +167,7 @@ class MyRunnable(Runnable):
                             print(
                                 f"[ERROR] Exception {e} when autofilling: {project_key} - {dataset_id}"
                             )
+                            status = 'error - exception'
                             continue
                 finally:
                     self.__progress += 1
