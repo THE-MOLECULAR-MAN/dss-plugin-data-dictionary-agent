@@ -237,11 +237,10 @@ class MyRunnable(Runnable):
                         f"[ERROR] Creating flow zone description for {project_key} {e}"
                     )
                     pretty_print_dict(flow_zone_settings)
+                    continue
+                finally:
                     self.__progress += 1
                     progress_callback(self.__progress)
-                    continue
-                self.__progress += 1
-                progress_callback(self.__progress)
 
 
     def run_projects(self, progress_callback):
