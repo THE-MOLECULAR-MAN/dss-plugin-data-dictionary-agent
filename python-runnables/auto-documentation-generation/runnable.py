@@ -73,9 +73,12 @@ class MyRunnable(Runnable):
         if self.__autofill_projects:
             self.__inscope += len(self.__projects_list)
             
+        if self.__autofill_flowzones:
+            x
+
         if self.__autofill_datasets:
             x
-        
+
         
 
 
