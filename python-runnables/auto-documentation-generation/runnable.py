@@ -246,6 +246,7 @@ class MyRunnable(Runnable):
             return None
 
         # iterate through the list of projects
+        self.__inscope += len(self.__projects_list)        
         for project_key in self.__projects_list:
             try:
                 project_handle = self.__client.get_project(project_key)
