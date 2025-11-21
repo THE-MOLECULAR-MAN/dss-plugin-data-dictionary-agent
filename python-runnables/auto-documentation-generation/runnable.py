@@ -285,6 +285,8 @@ class MyRunnable(Runnable):
                         status = 'Generated & updated'
                     else:
                         status = 'Generated but dry run, not updated'
+                else:
+                    status = 'Skipped - already had non-empty description'
 
             except json.JSONDecodeError:
                 print(
@@ -312,3 +314,4 @@ class MyRunnable(Runnable):
         self.run_flowzones(progress_callback)
         self.run_projects(progress_callback)
         return self.__rt
+        
