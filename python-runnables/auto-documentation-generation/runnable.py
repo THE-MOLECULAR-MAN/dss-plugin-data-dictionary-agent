@@ -64,6 +64,8 @@ class MyRunnable(Runnable):
         else:
             print(f"[WARNING] invalid project_filter: {pf} Defaulting to this project only")
             self.__projects_list = [self.project_key]
+            
+        self.set_total_scope_size()
               
         # print(self)
         
