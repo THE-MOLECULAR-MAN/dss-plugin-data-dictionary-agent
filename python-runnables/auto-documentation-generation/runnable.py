@@ -82,7 +82,7 @@ class MyRunnable(Runnable):
         # this function runs once and only once, cannot dynamically update it.
 #         return (self.__inscope, 'RECORDS')
         return (1, None)
-#         return None
+        # return None # this disables the status updates
     
     def run_datasets(self, progress_callback):
         """
