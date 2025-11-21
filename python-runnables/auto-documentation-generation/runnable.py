@@ -159,9 +159,6 @@ class MyRunnable(Runnable):
                             print(
                                 f"[ERROR] Exception {e} when autofilling: {project_key} - {dataset_id}"
                             )
-                            self.__progress += 1
-                            progress_callback(self.__progress)
-
                             continue
                 finally:
                     self.__progress += 1
