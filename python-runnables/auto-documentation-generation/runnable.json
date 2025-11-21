@@ -155,7 +155,7 @@
     "resultType": "FILE",
 
     /* label to use when the runnable's result is not inlined in the UI (ex: for urls) */
-    "resultLabel": "auto_documentation_macro_run_status",
+    "resultLabel": "Macro run status-output in JSON format",
 
     /* for FILE resultType, the extension to use for the temp file */
     "extension": "json",
