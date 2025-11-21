@@ -254,7 +254,7 @@ class MyRunnable(Runnable):
             try:
                 rt_record = []
                 status = 'start'
-                rt_record.append('Project')
+                rt_record.append('project')
                 rt_record.append(project_key)                
                 project_handle = self.__client.get_project(project_key)
 
