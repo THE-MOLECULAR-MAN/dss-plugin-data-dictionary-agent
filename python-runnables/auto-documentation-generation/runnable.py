@@ -119,7 +119,11 @@ class MyRunnable(Runnable):
                         continue
 
                     # skip this dataset if it already has all of the description fields filled out
-                    if not dataset_has_full_documentation(project_handle, dataset_id):
+                    #if not dataset_has_full_documentation(project_handle, dataset_id):
+
+                    # skip this dataset if it has ANY of the description fields filled out
+                    if not dataset_has_any_documentation(project_handle, dataset_id):
+
 
                         # test if the first row can be read. VERY IMPORTANT to filter out a lot of
                         # wasted AI Services calls.
