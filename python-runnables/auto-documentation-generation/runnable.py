@@ -245,7 +245,7 @@ class MyRunnable(Runnable):
         x
         """
         
-        rt_record = []
+        
         
         if not self.__autofill_projects:
             print("Skipping Projects since they're not selected")
@@ -254,6 +254,7 @@ class MyRunnable(Runnable):
         # iterate through the list of projects
         self.__inscope += len(self.__projects_list)        
         for project_key in self.__projects_list:
+            rt_record = []
             try:
                 status = 'start'
                 project_handle = self.__client.get_project(project_key)
