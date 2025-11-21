@@ -66,6 +66,9 @@ class MyRunnable(Runnable):
             self.__projects_list = [self.project_key]
               
         # print(self)
+        
+    def get_total_scope_size(self):
+        
 
     @property
     def num_ai_services_used(self):
