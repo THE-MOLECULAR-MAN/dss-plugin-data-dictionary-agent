@@ -68,23 +68,25 @@ class MyRunnable(Runnable):
         # print(self)
         
     def get_total_scope_size(self):
-        self.__inscope = 0
-        
-        if self.__autofill_projects:
-            self.__inscope += len(self.__projects_list)
-            
-        if self.__autofill_flowzones:
-            for project_key in self.__projects_list:
-                project_handle = self.__client.get_project(project_key)
-                flow_handle = project_handle.get_flow()
+        try:
+            self.__inscope = 0
 
-                # Iterate through each flow zone in a specific project
-                self.__inscope += len(flow_handle.list_zones())
+            if self.__autofill_projects:
+                self.__inscope += len(self.__projects_list)
 
-        if self.__autofill_datasets:
-            x
+            if self.__autofill_flowzones:
+                for project_key in self.__projects_list:
+                    project_handle = self.__client.get_project(project_key)
+                    flow_handle = project_handle.get_flow()
 
-        
+                    # Iterate through each flow zone in a specific project
+                    self.__inscope += len(flow_handle.list_zones())
+
+            if self.__autofill_datasets:
+                x
+
+        finally:
+            return self.__inscope
 
 
     @property
