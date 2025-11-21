@@ -74,7 +74,12 @@ class MyRunnable(Runnable):
             self.__inscope += len(self.__projects_list)
             
         if self.__autofill_flowzones:
-            x
+            for project_key in self.__projects_list:
+                project_handle = self.__client.get_project(project_key)
+                flow_handle = project_handle.get_flow()
+
+                # Iterate through each flow zone in a specific project
+                self.__inscope += len(flow_handle.list_zones())
 
         if self.__autofill_datasets:
             x
