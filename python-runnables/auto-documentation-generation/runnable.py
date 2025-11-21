@@ -46,8 +46,6 @@ class MyRunnable(Runnable):
         #arr = self.config["object_types_to_autofill"]
         #print(f"list of obj to autofill {str(arr)}")
 
-#        ['projects', 'flowzones', 'datasets']
-
         self.__autofill_projects  = "projects"  in self.config["object_types_to_autofill"]
         self.__autofill_flowzones = "flowzones" in self.config["object_types_to_autofill"]
         self.__autofill_datasets  = "datasets"  in self.config["object_types_to_autofill"]
