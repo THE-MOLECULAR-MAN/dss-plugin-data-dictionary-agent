@@ -12,7 +12,7 @@ from datadictionaryagent.utils import *
 
 # import pandas as pd
 import dataiku
-from dataiku.runnables import Runnable
+from dataiku.runnables import Runnable, ResultTable
 from dataikuapi.utils import DataikuException
 import dataikuapi
 
