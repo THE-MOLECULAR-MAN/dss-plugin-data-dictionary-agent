@@ -282,7 +282,6 @@ class MyRunnable(Runnable):
                 
     def run(self, progress_callback):
         """
-        Do stuff here. Can return a string or raise an exception.
         The progress_callback is a function expecting 1 value: current progress
         """
         self.run_datasets(progress_callback)
