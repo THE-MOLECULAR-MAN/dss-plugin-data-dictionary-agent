@@ -84,6 +84,38 @@ def get_dataset_column_descriptions(dataset_handle):
         return ""
 
 
+def dataset_has_any_documentation(project_handle, dataset_id):
+    """
+    Returns a boolean describing if a specific dataset meets ANY of the following requirements:
+        1) It has a shortDesc that is not empty
+        2) It has a description that is not empty
+        3) ALL columns have descriptions that are not empty.
+
+    Useful for determining if we should auto-generate a description to fill it in.
+    """
+
+    # project_handle = client.get_project(project_key)
+    dataset_handle = project_handle.get_dataset(dataset_id)
+
+    if get_dataset_short_description(dataset_handle):
+        # print(f'Dataset {dataset_id} lacks full documentation because empty: Short Description')
+        return True
+
+    if get_dataset_long_description(dataset_handle):
+        # print(f'Dataset {dataset_id} lacks full documentation because empty: Long Description')
+        return True
+
+    column_descriptions = get_dataset_column_descriptions(dataset_handle)
+
+    if any(s or not s.strip() for s in column_descriptions):
+        # print(f'Dataset {dataset_id} lacks full documentation because empty: Column descriptions')
+        return True
+
+    # print(f'Dataset {dataset_id} has all description fields filled out.')
+    return False
+
+    
+
 def dataset_has_full_documentation(project_handle, dataset_id):
     """
     Returns a boolean describing if a specific dataset meets ALL of the following requirements:

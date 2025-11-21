@@ -5,7 +5,24 @@
         "label": "Automatically generate descriptions for datasets, projects, flowzones",
 
         // description: longer string to help end users understand what this runnable does
-        "description": "Macro to locate empty descriptions for projects, flowzones, and datasets and automatically fill them in use Dataiku's AI Services.",
+        "description": "Macro to locate empty descriptions for projects, flowzones, and datasets and automatically fill them in use Dataiku's AI Services.
+        
+The Dataiku API (and thus this plugin) is only able to automatically fill in the following fields with AI generated descriptions:
+* Projects - full (long) descriptions as seen on the bottom of the project home page. It does not modify the short description at the top.
+* Flow Zones - Long descriptions are supported, short descriptions are not supported.
+* Datasets
+    * short description
+    * long description
+    * each individual column's description
+
+        ```WARNING: if Apply AI generated changes is enabled (not a dry run), ```
+        ```then if ANY single description in a dataset is detected ```
+        ```as empty then ALL of the datasets' descriptions ```
+        ```will be overwritten.```
+        ```For example: if a dataset already has a human written long description, ```
+        ```short description, and column descriptions for 9 of 10 columns, ```
+        ```then it will overwrite ALL of them with AI written descriptions.```
+        ",
 
         // icon: must be one of the FontAwesome 5.15.4 icons, complete list here at https://fontawesome.com/v5/docs/
         // "icon": "fas fa-puzzle-piece"
@@ -152,16 +169,17 @@
        - FILE : raw data (as a python string) that will be stored in a temp file by DSS
        - URL : a url
      */
-    "resultType": "HTML",
+    "resultType": "FILE",
 
     /* label to use when the runnable's result is not inlined in the UI (ex: for urls) */
-    "resultLabel": "my production",
+    "resultLabel": "Macro run status-output in JSON format",
 
     /* for FILE resultType, the extension to use for the temp file */
-    "extension": "txt",
+    "extension": "json",
 
     /* for FILE resultType, the type of data stored in the temp file */
-    "mimeType": "text/plain",
+    // "mimeType": "text/plain",
+    "mimeType": "application/json",
 
     /* Macro roles define where this macro will appear in DSS GUI. They are used to pre-fill a macro parameter with context.
 

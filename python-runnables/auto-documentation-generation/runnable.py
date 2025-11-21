@@ -12,7 +12,7 @@ from datadictionaryagent.utils import *
 
 # import pandas as pd
 import dataiku
-from dataiku.runnables import Runnable
+from dataiku.runnables import Runnable, ResultTable
 from dataikuapi.utils import DataikuException
 import dataikuapi
 
@@ -26,11 +26,14 @@ class MyRunnable(Runnable):
         :param config: the dict of the configuration of the object
         :param plugin_config: contains the plugin settings
         """
+        print('MyRunnable Constructor start')
         self.project_key = project_key
         self.config = config
         self.plugin_config = plugin_config
 
         self.__num_ai_services_used = 0
+        self.__progress = 0
+        self.__inscope  = 1
         self.__language                = self.config["language"]
         self.__project_purpose         = self.config["project_purpose"]
 
@@ -43,18 +46,14 @@ class MyRunnable(Runnable):
         #arr = self.config["object_types_to_autofill"]
         #print(f"list of obj to autofill {str(arr)}")
 
-#        ['projects', 'flowzones', 'datasets']
-
         self.__autofill_projects  = "projects"  in self.config["object_types_to_autofill"]
         self.__autofill_flowzones = "flowzones" in self.config["object_types_to_autofill"]
         self.__autofill_datasets  = "datasets"  in self.config["object_types_to_autofill"]
-        
-        #print(f"autofill proj: {self.__autofill_projects}")
 
         self.__client = dataiku.api_client()
         
         # multi-select
-        pf = self.config["project_filter"] # all_projects, project_tags, project_folder
+        pf = self.config["project_filter"]
 
         if pf == "this_project_only":
             self.__projects_list = [self.project_key]
@@ -80,9 +79,12 @@ class MyRunnable(Runnable):
         If the runnable will return some progress info, have this function return a tuple of
         (target, unit) where unit is one of: SIZE, FILES, RECORDS, NONE
         """
-        return None
-
-    def run_datasets(self):
+        # this function runs once and only once, and unfortunately it cannot dynamically update the target as the scope grows.
+#         return (self.__inscope, 'RECORDS')
+        return (1, None)
+        # return None # this disables the status updates
+    
+    def run_datasets(self, progress_callback):
         """
         x
         """
@@ -96,64 +98,81 @@ class MyRunnable(Runnable):
             project_handle = self.__client.get_project(project_key)
 
             # iterate through all datasets in that project
+            self.__inscope += len(project_handle.list_datasets())
             for dataset in project_handle.list_datasets():
-                dataset_id = dataset["name"]
-                dataset_handle = project_handle.get_dataset(dataset_id)
+                try:
+                    rt_record = []
+                    status = 'start'
+                    rt_record.append('dataset')
 
-                if not dataset_handle.exists():
-                    print(
-                        f"[SKIP] dataset does not exist:   {project_key} - {dataset_id}"
-                    )
-                    continue
+                    dataset_id = dataset["name"]
+                    rt_record.append(project_key + ' - ' + dataset_id)                    
+                    dataset_handle = project_handle.get_dataset(dataset_id)
 
-                # check if there is no schema
-                if len(dataset["schema"].get("columns", "")) == 0:
-                    print(
-                        f"[SKIP] dataset has empty schema: {project_key} - {dataset_id}"
-                    )
-                    continue
-
-                # skip this dataset if it already has all of the description fields filled out
-                if not dataset_has_full_documentation(project_handle, dataset_id):
-
-                    # test if the first row can be read. VERY IMPORTANT to filter out a lot of
-                    # wasted AI Services calls.
-                    if not read_first_dataset_row(project_key, dataset_id):
-                        print(
-                            f"[SKIP] dataset could not be read: {project_key} - {dataset_id}"
-                        )
+                    if not dataset_handle.exists():
+                        status = 'skipped - dataset does not exist'
                         continue
 
-                    print(
-                        f"Auto-generating documentation for {project_key}'s dataset: {dataset_id} ..."
-                    )
-                    try:
-                        # always increment this BEFORE calling generate_ai_description since
-                        # generate_ai_description often raises an exception
-                        self.__num_ai_services_used += 1
-
-                        # this blocks execution, doesn't utilize Futures/JobID system
-                        # actually generate and save the description
-                        _ = dataset_handle.generate_ai_description(
-                            language=self.__language,
-                            save_description=self.__save_description,
-                        )
-
-                    #                 if SAVE_DESCRIPTION and dataset_has_full_documentation(project_handle, dataset_id):
-                    #                     print(f"Successfully filled out all fields for {dataset_id}")
-                    #                 else:
-                    #                     print(f"Attempted to fill in description for dataset, but failed to take effect: {dataset_id}")
-                    #                     print(x)
-
-                    except DataikuException as e:
-                        # there are so many different types of exceptions that occur
-                        # java.lang.IllegalArgumentException: Column not found in schema:
-                        print(
-                            f"[ERROR] Exception {e} when autofilling: {project_key} - {dataset_id}"
-                        )
+                    # check if there is no schema
+                    if len(dataset["schema"].get("columns", "")) == 0:
+                        status = 'skipped - empty schema'
                         continue
 
-    def run_flowzones(self):
+                    # skip this dataset if it already has all of the description fields filled out
+                    #if not dataset_has_full_documentation(project_handle, dataset_id):
+
+                    # skip this dataset if it has ANY of the description fields filled out
+                    if not dataset_has_any_documentation(project_handle, dataset_id):
+                        # test if the first row can be read. VERY IMPORTANT to filter out a lot of
+                        # wasted AI Services calls.
+                        if not read_first_dataset_row(project_key, dataset_id):
+                            status = 'skipped - dataset could not be read'
+                            continue
+
+                        print(
+                            f"Auto-generating documentation for {project_key}'s dataset: {dataset_id} ..."
+                        )
+                        try:
+                            # always increment this BEFORE calling generate_ai_description since
+                            # generate_ai_description often raises an exception
+                            self.__num_ai_services_used += 1
+
+                            # this blocks execution, doesn't utilize Futures/JobID system
+                            # actually generate and save the description
+                            _ = dataset_handle.generate_ai_description(
+                                language=self.__language,
+                                save_description=self.__save_description,
+                            )
+                            if self.__save_description:
+                                status = 'Generated & updated'
+                            else:
+                                status = 'Generated but dry run, not updated'
+
+                        #                 if SAVE_DESCRIPTION and dataset_has_full_documentation(project_handle, dataset_id):
+                        #                     print(f"Successfully filled out all fields for {dataset_id}")
+                        #                 else:
+                        #                     print(f"Attempted to fill in description for dataset, but failed to take effect: {dataset_id}")
+                        #                     print(x)
+                        
+
+                        except DataikuException as e:
+                            # there are so many different types of exceptions that occur
+                            # java.lang.IllegalArgumentException: Column not found in schema:
+                            print(
+                                f"[ERROR] Exception {e} when autofilling: {project_key} - {dataset_id}"
+                            )
+                            status = 'error - DataikuException'
+                            continue
+                    else:
+                        status = 'skipped - dataset already had some description'
+                finally:
+                    self.__progress += 1
+                    progress_callback(self.__progress)
+                    rt_record.append(status)
+                    self.__rt.add_record(rt_record)
+
+
+    def run_flowzones(self, progress_callback):
         """
         Iterates through projects and their flow zones to generate AI descriptions where needed.
 
@@ -186,16 +205,20 @@ class MyRunnable(Runnable):
             flow_handle = project_handle.get_flow()
 
             # Iterate through each flow zone in a specific project
+            self.__inscope += len(flow_handle.list_zones())
             for flow_zone_handle in flow_handle.list_zones():
                 try:
+                    rt_record = []
+                    status = 'start'     
+                    rt_record.append('flow zone')
+                    rt_record.append(project_key + ' - ' + flow_zone_handle.name)
+                    
                     # Ensure that the flow zone meets the requirements for
                     # AI-Gen descriptions before attempting to have AI
                     # generate the description.
                     if is_flowzone_empty(flow_zone_handle):
                         # note: cannot call the flow zone name, it will throw an exception if you try to get it.
-                        print(
-                            f"[SKIP] Flow zone must have dataset or recipe in it to autogenerate description: {project_key}"
-                        )
+                        status = 'skipped - empty flow zone'
                         continue
 
                     # get the settings and name of the flow zone
@@ -215,16 +238,24 @@ class MyRunnable(Runnable):
                             length=self.__flowzone_length,
                             save_description=self.__save_description,
                         )
-                    #else:
-                    #    print(f"[SKIP] Flow zone already has a description: {project_key}")
+                        if self.__save_description:
+                            status = 'Generated & updated'
+                        else:
+                            status = 'Generated but dry run, not updated'
+                    else:
+                        status = 'skipped - already has description'
                 except (DataikuException, json.JSONDecodeError) as e:
-                    print(
-                        f"[ERROR] Creating flow zone description for {project_key} {e}"
-                    )
+                    status = 'Error - DataikuException or JSONDecodeError'
                     pretty_print_dict(flow_zone_settings)
                     continue
+                finally:
+                    self.__progress += 1
+                    progress_callback(self.__progress)
+                    rt_record.append(status)
+                    self.__rt.add_record(rt_record)
 
-    def run_projects(self):
+
+    def run_projects(self, progress_callback):
         """
         x
         """
@@ -233,8 +264,13 @@ class MyRunnable(Runnable):
             return None
 
         # iterate through the list of projects
+        self.__inscope += len(self.__projects_list)        
         for project_key in self.__projects_list:
             try:
+                rt_record = []
+                status = 'start'
+                rt_record.append('project')
+                rt_record.append(project_key)                
                 project_handle = self.__client.get_project(project_key)
 
                 # Ensure that the project meets the requirements for creating
@@ -243,6 +279,7 @@ class MyRunnable(Runnable):
                     print(
                         f"[SKIP] Project must have datasets or recipes in flow, can't create description: {project_key}"
                     )
+                    status = 'Skipped - empty project'
                     continue
 
                 # Only generate descriptions if there is not one already:
@@ -259,22 +296,37 @@ class MyRunnable(Runnable):
                         length=self.__project_length,
                         save_description=self.__save_description,
                     )
+                    if self.__save_description:
+                        status = 'Generated & updated'
+                    else:
+                        status = 'Generated but dry run, not updated'
+                else:
+                    status = 'Skipped - already had non-empty description'
 
             except json.JSONDecodeError:
                 print(
                     f"[JSONDecodeError] Creating project description for {project_key}"
                 )
+                status = 'Exception - JSONDecodeError'
                 continue
+            finally:
+                self.__progress += 1
+                progress_callback(self.__progress)
+                rt_record.append(status)
+                self.__rt.add_record(rt_record)
 
+                
     def run(self, progress_callback):
         """
-        Do stuff here. Can return a string or raise an exception.
         The progress_callback is a function expecting 1 value: current progress
         """
-        # raise Exception("unimplemented")
-        #from pprint import pprint
-        #pprint(vars(self))
-        self.run_datasets()
-        self.run_flowzones()
-        self.run_projects()
-        return None
+        self.__rt = ResultTable()
+        self.__rt.add_column("1", "Object Type", "STRING")
+        self.__rt.add_column("2", "Object Name", "STRING")
+        self.__rt.add_column("2", "Autofill status", "STRING")        
+        
+        self.run_datasets(progress_callback)
+        self.run_flowzones(progress_callback)
+        self.run_projects(progress_callback)
+        return self.__rt
+        
