@@ -212,6 +212,7 @@ class MyRunnable(Runnable):
                         print(
                             f"[SKIP] Flow zone must have dataset or recipe in it to autogenerate description: {project_key}"
                         )
+                        status = 'skipped - empty flow zone'     
                         continue
 
                     # get the settings and name of the flow zone
