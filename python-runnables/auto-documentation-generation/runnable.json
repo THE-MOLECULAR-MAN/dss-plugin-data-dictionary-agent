@@ -15,7 +15,9 @@ The Dataiku API (and thus this plugin) is only able to automatically fill in the
     * long description
     * each individual column's description
 
-It will only replace dataset descriptions if ALL of the dataset description fields are empty.",
+It will only replace dataset descriptions if ALL of the dataset description fields are empty.
+
+After 1,000 AI generated descriptions per day, responses are throttled and will take longer.",
 
         // icon: must be one of the FontAwesome 5.15.4 icons, complete list here at https://fontawesome.com/v5/docs/
         // "icon": "fas fa-puzzle-piece"
