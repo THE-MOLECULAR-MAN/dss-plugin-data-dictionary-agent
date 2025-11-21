@@ -104,6 +104,10 @@ class MyRunnable(Runnable):
             self.__inscope += len(project_handle.list_datasets())
             for dataset in project_handle.list_datasets():
                 try:
+                    rt_record = []
+                    status = 'start'     
+                    rt_record.append('dataset')
+
                     dataset_id = dataset["name"]
                     dataset_handle = project_handle.get_dataset(dataset_id)
 
