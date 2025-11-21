@@ -85,7 +85,7 @@ class MyRunnable(Runnable):
         """
 
         print('get_progress_target RAN')
-        return (self.__inscope, None)
+        return (self.__inscope, 'RECORDS')
         #return (100, None)
     
     def run_datasets(self, progress_callback):
