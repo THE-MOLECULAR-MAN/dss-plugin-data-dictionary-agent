@@ -161,7 +161,8 @@
     "extension": "json",
 
     /* for FILE resultType, the type of data stored in the temp file */
-    "mimeType": "text/plain",
+    // "mimeType": "text/plain",
+    "mimeType": "application/json",
 
     /* Macro roles define where this macro will appear in DSS GUI. They are used to pre-fill a macro parameter with context.
 
