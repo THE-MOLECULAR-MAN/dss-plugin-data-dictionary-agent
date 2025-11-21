@@ -232,7 +232,10 @@ class MyRunnable(Runnable):
                             length=self.__flowzone_length,
                             save_description=self.__save_description,
                         )
-                        status = 'updated'
+                        if self.__save_description:
+                            status = 'Generated & updated'
+                        else:
+                            status = 'Generated but dry run, not updated'
                     else:
                         print(f"[SKIP] Flow zone already has a description: {project_key}")
                         status = 'skipped - already has description'
