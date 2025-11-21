@@ -31,6 +31,7 @@ class MyRunnable(Runnable):
         self.plugin_config = plugin_config
 
         self.__num_ai_services_used = 0
+        self.__progress = 0
         self.__language                = self.config["language"]
         self.__project_purpose         = self.config["project_purpose"]
 
@@ -104,6 +105,7 @@ class MyRunnable(Runnable):
                     print(
                         f"[SKIP] dataset does not exist:   {project_key} - {dataset_id}"
                     )
+                    self.__progress += 1
                     continue
 
                 # check if there is no schema
