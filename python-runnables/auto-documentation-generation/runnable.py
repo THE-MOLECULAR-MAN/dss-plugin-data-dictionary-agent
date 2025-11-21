@@ -243,6 +243,7 @@ class MyRunnable(Runnable):
                     print(
                         f"[ERROR] Creating flow zone description for {project_key} {e}"
                     )
+                    status = 'Error'
                     pretty_print_dict(flow_zone_settings)
                     continue
                 finally:
