@@ -82,7 +82,7 @@ class MyRunnable(Runnable):
         """
         return None
 
-    def run_datasets(self):
+    def run_datasets(self, progress_callback):
         """
         x
         """
@@ -153,7 +153,7 @@ class MyRunnable(Runnable):
                         )
                         continue
 
-    def run_flowzones(self):
+    def run_flowzones(self, progress_callback):
         """
         Iterates through projects and their flow zones to generate AI descriptions where needed.
 
@@ -224,7 +224,7 @@ class MyRunnable(Runnable):
                     pretty_print_dict(flow_zone_settings)
                     continue
 
-    def run_projects(self):
+    def run_projects(self, progress_callback):
         """
         x
         """
