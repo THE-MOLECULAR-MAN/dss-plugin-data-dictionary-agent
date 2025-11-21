@@ -163,7 +163,7 @@ class MyRunnable(Runnable):
                             progress_callback(self.__progress)
 
                             continue
-                finally:                        
+                finally:
                     self.__progress += 1
                     progress_callback(self.__progress)
 
