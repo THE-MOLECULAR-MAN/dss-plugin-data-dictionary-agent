@@ -290,6 +290,7 @@ class MyRunnable(Runnable):
                 print(
                     f"[JSONDecodeError] Creating project description for {project_key}"
                 )
+                status = 'Exception - JSONDecodeError'
                 continue
             finally:
                 self.__progress += 1
