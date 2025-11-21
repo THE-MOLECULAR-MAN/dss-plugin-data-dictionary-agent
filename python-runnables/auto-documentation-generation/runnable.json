@@ -155,10 +155,10 @@
     "resultType": "FILE",
 
     /* label to use when the runnable's result is not inlined in the UI (ex: for urls) */
-    "resultLabel": "my production",
+    "resultLabel": "auto_documentation_macro_run_status",
 
     /* for FILE resultType, the extension to use for the temp file */
-    "extension": "txt",
+    "extension": "json",
 
     /* for FILE resultType, the type of data stored in the temp file */
     "mimeType": "text/plain",
