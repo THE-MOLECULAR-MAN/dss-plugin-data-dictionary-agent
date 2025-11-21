@@ -209,8 +209,6 @@ class MyRunnable(Runnable):
                         print(
                             f"[SKIP] Flow zone must have dataset or recipe in it to autogenerate description: {project_key}"
                         )
-                        self.__progress += 1
-                        progress_callback(self.__progress)
                         continue
 
                     # get the settings and name of the flow zone
