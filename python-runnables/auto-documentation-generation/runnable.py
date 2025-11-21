@@ -62,8 +62,32 @@ class MyRunnable(Runnable):
         else:
             print(f"[WARNING] invalid project_filter: {pf} Defaulting to this project only")
             self.__projects_list = [self.project_key]
+            
+        self.set_total_scope_size()
               
         # print(self)
+        
+    def set_total_scope_size(self):
+        
+        self.__inscope = 0
+
+        if self.__autofill_projects:
+            self.__inscope += len(self.__projects_list)
+
+        if self.__autofill_flowzones:
+            for project_key in self.__projects_list:
+                project_handle = self.__client.get_project(project_key)
+                flow_handle = project_handle.get_flow()
+
+                # Iterate through each flow zone in a specific project
+                self.__inscope += len(flow_handle.list_zones())
+
+        if self.__autofill_datasets:
+            for project_key in self.__projects_list:
+                project_handle = self.__client.get_project(project_key)
+
+                # iterate through all datasets in that project
+                self.__inscope += len(project_handle.list_datasets())
 
     @property
     def num_ai_services_used(self):
@@ -80,8 +104,8 @@ class MyRunnable(Runnable):
         (target, unit) where unit is one of: SIZE, FILES, RECORDS, NONE
         """
         # this function runs once and only once, and unfortunately it cannot dynamically update the target as the scope grows.
-#         return (self.__inscope, 'RECORDS')
-        return (1, None)
+        return (self.__inscope, 'RECORDS')
+        # return (1, None)
         # return None # this disables the status updates
     
     def run_datasets(self, progress_callback):
