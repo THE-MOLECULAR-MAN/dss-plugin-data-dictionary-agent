@@ -201,7 +201,9 @@ class MyRunnable(Runnable):
             for flow_zone_handle in flow_handle.list_zones():
                 try:
                     rt_record = []
-                    status = 'start'                    
+                    status = 'start'     
+                    rt_record.append('flow zone')
+                    
                     # Ensure that the flow zone meets the requirements for
                     # AI-Gen descriptions before attempting to have AI
                     # generate the description.
