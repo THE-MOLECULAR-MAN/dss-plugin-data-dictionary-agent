@@ -254,6 +254,8 @@ class MyRunnable(Runnable):
             try:
                 rt_record = []
                 status = 'start'
+                rt_record.append('Project')
+                rt_record.append('Project')                
                 project_handle = self.__client.get_project(project_key)
 
                 # Ensure that the project meets the requirements for creating
@@ -288,7 +290,8 @@ class MyRunnable(Runnable):
             finally:
                 self.__progress += 1
                 progress_callback(self.__progress)
-                self.__rt.append(rt_record)
+                rt_record.append(status)
+                self.__rt.add_record(rt_record)
 
                 
     def run(self, progress_callback):
