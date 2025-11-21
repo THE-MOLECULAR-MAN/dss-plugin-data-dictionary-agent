@@ -15,8 +15,8 @@ The Dataiku API (and thus this plugin) is only able to automatically fill in the
     * long description
     * each individual column's description
         
-    WARNING: if Apply AI generated changes is enabled (not a dry run), then if ANY single description in a dataset is detected as empty then ALL of the datasets' descriptions will be overwritten.
-    For example: if a dataset already has a human written long description, short description, and column descriptions for 9 of 10 columns, then it will overwrite ALL of them with AI written descriptions.
+        WARNING: if Apply AI generated changes is enabled (not a dry run), then if ANY single description in a dataset is detected as empty then ALL of the datasets' descriptions will be overwritten.
+        For example: if a dataset already has a human written long description, short description, and column descriptions for 9 of 10 columns, then it will overwrite ALL of them with AI written descriptions.
 ",
 
         // icon: must be one of the FontAwesome 5.15.4 icons, complete list here at https://fontawesome.com/v5/docs/
