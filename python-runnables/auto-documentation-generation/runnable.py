@@ -109,6 +109,7 @@ class MyRunnable(Runnable):
                     rt_record.append('dataset')
 
                     dataset_id = dataset["name"]
+                    rt_record.append(project_key + ' - ' + dataset_id)                    
                     dataset_handle = project_handle.get_dataset(dataset_id)
 
                     if not dataset_handle.exists():
