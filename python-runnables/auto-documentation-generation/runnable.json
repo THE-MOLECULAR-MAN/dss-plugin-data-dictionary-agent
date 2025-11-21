@@ -7,7 +7,7 @@
         // description: longer string to help end users understand what this runnable does
         "description": "Macro to locate empty descriptions for projects, flowzones, and datasets and automatically fill them in use Dataiku's AI Services.
         
-        The Dataiku API (and thus this plugin) is only able to automatically fill in the following fields with AI generated descriptions:
+The Dataiku API (and thus this plugin) is only able to automatically fill in the following fields with AI generated descriptions:
         * Projects - full (long) descriptions as seen on the bottom of the project home page. It does not modify the short description at the top.
         * Flow Zones - Long descriptions are supported, short descriptions are not supported.
         * Datasets
