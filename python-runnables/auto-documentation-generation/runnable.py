@@ -109,18 +109,12 @@ class MyRunnable(Runnable):
                     dataset_handle = project_handle.get_dataset(dataset_id)
 
                     if not dataset_handle.exists():
-                        print(
-                            f"[SKIP] dataset does not exist:   {project_key} - {dataset_id}"
-                        )
                         status = 'skipped - dataset does not exist'
                         continue
 
                     # check if there is no schema
                     if len(dataset["schema"].get("columns", "")) == 0:
-                        print(
-                            f"[SKIP] dataset has empty schema: {project_key} - {dataset_id}"
-                        )
-                        status = 'skipped - no schema'
+                        status = 'skipped - empty schema'
                         continue
 
                     # skip this dataset if it already has all of the description fields filled out
@@ -129,9 +123,6 @@ class MyRunnable(Runnable):
                         # test if the first row can be read. VERY IMPORTANT to filter out a lot of
                         # wasted AI Services calls.
                         if not read_first_dataset_row(project_key, dataset_id):
-                            print(
-                                f"[SKIP] dataset could not be read: {project_key} - {dataset_id}"
-                            )
                             status = 'skipped - dataset could not be read'
                             continue
 
