@@ -203,6 +203,7 @@ class MyRunnable(Runnable):
                     rt_record = []
                     status = 'start'     
                     rt_record.append('flow zone')
+                    rt_record.append(flow_handle.name)
                     
                     # Ensure that the flow zone meets the requirements for
                     # AI-Gen descriptions before attempting to have AI
