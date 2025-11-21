@@ -81,7 +81,8 @@ class MyRunnable(Runnable):
         """
         # this function runs once and only once, cannot dynamically update it.
 #         return (self.__inscope, 'RECORDS')
-        return (100, None)
+        # return (100, None)
+        return None
     
     def run_datasets(self, progress_callback):
         """
