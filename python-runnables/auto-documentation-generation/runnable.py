@@ -82,7 +82,7 @@ class MyRunnable(Runnable):
         (target, unit) where unit is one of: SIZE, FILES, RECORDS, NONE
         """
         # this function runs once and only once, and unfortunately it cannot dynamically update the target as the scope grows.
-#         return (self.__inscope, 'RECORDS')
+        return (self.__inscope, 'RECORDS')
         return (1, None)
         # return None # this disables the status updates
     
