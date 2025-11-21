@@ -244,6 +244,9 @@ class MyRunnable(Runnable):
         """
         x
         """
+        
+        rt_record = []
+        
         if not self.__autofill_projects:
             print("Skipping Projects since they're not selected")
             return None
@@ -252,6 +255,7 @@ class MyRunnable(Runnable):
         self.__inscope += len(self.__projects_list)        
         for project_key in self.__projects_list:
             try:
+                status = 'start'
                 project_handle = self.__client.get_project(project_key)
 
                 # Ensure that the project meets the requirements for creating
@@ -260,6 +264,7 @@ class MyRunnable(Runnable):
                     print(
                         f"[SKIP] Project must have datasets or recipes in flow, can't create description: {project_key}"
                     )
+                    status = 'Skipped - empty project'
                     continue
 
                 # Only generate descriptions if there is not one already:
@@ -285,6 +290,7 @@ class MyRunnable(Runnable):
             finally:
                 self.__progress += 1
                 progress_callback(self.__progress)
+                self.__rt.append(rt_record)
 
                 
     def run(self, progress_callback):
