@@ -172,6 +172,8 @@ class MyRunnable(Runnable):
                 finally:
                     self.__progress += 1
                     progress_callback(self.__progress)
+                    rt_record.append(status)
+                    self.__rt.add_record(rt_record)
 
 
     def run_flowzones(self, progress_callback):
