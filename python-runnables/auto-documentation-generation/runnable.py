@@ -264,9 +264,6 @@ class MyRunnable(Runnable):
                     print(
                         f"[SKIP] Project must have datasets or recipes in flow, can't create description: {project_key}"
                     )
-                    self.__progress += 1
-                    progress_callback(self.__progress)
-
                     continue
 
                 # Only generate descriptions if there is not one already:
@@ -288,11 +285,10 @@ class MyRunnable(Runnable):
                 print(
                     f"[JSONDecodeError] Creating project description for {project_key}"
                 )
+                continue
+            finally:
                 self.__progress += 1
                 progress_callback(self.__progress)
-                continue
-            self.__progress += 1
-            progress_callback(self.__progress)
 
                 
     def run(self, progress_callback):
