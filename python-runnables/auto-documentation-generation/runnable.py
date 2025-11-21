@@ -81,7 +81,7 @@ class MyRunnable(Runnable):
         If the runnable will return some progress info, have this function return a tuple of
         (target, unit) where unit is one of: SIZE, FILES, RECORDS, NONE
         """
-        return (100, None)
+        return (100, 'RECORDS')
 
     def run_datasets(self, progress_callback):
         """
