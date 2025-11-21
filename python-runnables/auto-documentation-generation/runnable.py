@@ -73,9 +73,6 @@ class MyRunnable(Runnable):
         if self.__autofill_projects:
             self.__inscope += len(self.__projects_list)  
 
-        # iterate through the list of projects
-              
-        for project_key in self.__projects_list:
 
     @property
     def num_ai_services_used(self):
