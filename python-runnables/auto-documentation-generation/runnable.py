@@ -291,6 +291,10 @@ class MyRunnable(Runnable):
         """
         The progress_callback is a function expecting 1 value: current progress
         """
+        self.__rt = ResultTable()
+        self.__rt.add_column("1", "Original name", "STRING")
+        self.__rt.add_column("2", "Copied name", "STRING")
+        
         self.run_datasets(progress_callback)
         self.run_flowzones(progress_callback)
         self.run_projects(progress_callback)
