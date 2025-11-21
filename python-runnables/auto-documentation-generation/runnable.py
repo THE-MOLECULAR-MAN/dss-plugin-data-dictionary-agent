@@ -33,7 +33,7 @@ class MyRunnable(Runnable):
 
         self.__num_ai_services_used = 0
         self.__progress = 0
-        self.__inscope  = 0
+        self.__inscope  = 1
         self.__language                = self.config["language"]
         self.__project_purpose         = self.config["project_purpose"]
 
