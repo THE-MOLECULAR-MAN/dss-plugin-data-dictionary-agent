@@ -281,6 +281,10 @@ class MyRunnable(Runnable):
                         length=self.__project_length,
                         save_description=self.__save_description,
                     )
+                    if self.__save_description:
+                        status = 'Generated & updated'
+                    else:
+                        status = 'Generated but dry run, not updated'
 
             except json.JSONDecodeError:
                 print(
