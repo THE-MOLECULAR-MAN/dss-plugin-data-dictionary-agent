@@ -311,4 +311,4 @@ class MyRunnable(Runnable):
         self.run_datasets(progress_callback)
         self.run_flowzones(progress_callback)
         self.run_projects(progress_callback)
-        return None
+        return self.__rt
