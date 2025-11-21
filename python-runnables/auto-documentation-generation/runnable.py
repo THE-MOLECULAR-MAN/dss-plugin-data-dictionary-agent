@@ -106,8 +106,6 @@ class MyRunnable(Runnable):
                         print(
                             f"[SKIP] dataset does not exist:   {project_key} - {dataset_id}"
                         )
-                        self.__progress += 1
-                        progress_callback(self.__progress)
                         continue
 
                     # check if there is no schema
@@ -115,8 +113,6 @@ class MyRunnable(Runnable):
                         print(
                             f"[SKIP] dataset has empty schema: {project_key} - {dataset_id}"
                         )
-                        self.__progress += 1
-                        progress_callback(self.__progress)                    
                         continue
 
                     # skip this dataset if it already has all of the description fields filled out
@@ -128,8 +124,6 @@ class MyRunnable(Runnable):
                             print(
                                 f"[SKIP] dataset could not be read: {project_key} - {dataset_id}"
                             )
-                            self.__progress += 1
-                            progress_callback(self.__progress)
                             continue
 
                         print(
