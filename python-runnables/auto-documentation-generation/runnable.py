@@ -288,7 +288,7 @@ class MyRunnable(Runnable):
         # raise Exception("unimplemented")
         #from pprint import pprint
         #pprint(vars(self))
-        self.run_datasets()
-        self.run_flowzones()
-        self.run_projects()
+        self.run_datasets(progress_callback)
+        self.run_flowzones(progress_callback)
+        self.run_projects(progress_callback)
         return None
