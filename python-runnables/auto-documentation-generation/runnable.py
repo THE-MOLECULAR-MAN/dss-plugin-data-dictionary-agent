@@ -212,7 +212,7 @@ class MyRunnable(Runnable):
                         print(
                             f"[SKIP] Flow zone must have dataset or recipe in it to autogenerate description: {project_key}"
                         )
-                        status = 'skipped - empty flow zone'     
+                        status = 'skipped - empty flow zone'
                         continue
 
                     # get the settings and name of the flow zone
@@ -232,8 +232,10 @@ class MyRunnable(Runnable):
                             length=self.__flowzone_length,
                             save_description=self.__save_description,
                         )
-                    #else:
-                    #    print(f"[SKIP] Flow zone already has a description: {project_key}")
+                        status = 'updated'                        
+                    else:
+                        print(f"[SKIP] Flow zone already has a description: {project_key}")
+                        status = 'skipped - already has description'
                 except (DataikuException, json.JSONDecodeError) as e:
                     print(
                         f"[ERROR] Creating flow zone description for {project_key} {e}"
