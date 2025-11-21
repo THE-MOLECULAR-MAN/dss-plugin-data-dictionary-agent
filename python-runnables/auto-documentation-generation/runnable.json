@@ -8,12 +8,11 @@
         "description": "Macro to locate empty descriptions for projects, flowzones, and datasets and automatically fill them in use Dataiku's AI Services.
         
 The Dataiku API (and thus this plugin) is only able to automatically fill in the following fields with AI generated descriptions:
-    * Projects - full (long) descriptions as seen on the bottom of the project home page. It does not modify the short description at the top.
-    * Flow Zones - Long descriptions are supported, short descriptions are not supported.
-    * Datasets
-        * x
-        
-        WARNING: the Dataiku Python API currently only supports completely replacing ALL applicable fields in datasets. If ",
+* Projects - full (long) descriptions as seen on the bottom of the project home page. It does not modify the short description at the top.
+* Flow Zones - Long descriptions are supported, short descriptions are not supported.
+* Datasets
+    * x
+        ",
 
         // icon: must be one of the FontAwesome 5.15.4 icons, complete list here at https://fontawesome.com/v5/docs/
         // "icon": "fas fa-puzzle-piece"
