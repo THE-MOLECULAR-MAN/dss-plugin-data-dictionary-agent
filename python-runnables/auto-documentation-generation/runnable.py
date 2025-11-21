@@ -80,7 +80,6 @@ class MyRunnable(Runnable):
         (target, unit) where unit is one of: SIZE, FILES, RECORDS, NONE
         """
         # this function runs once and only once, cannot dynamically update it.
-        print('get_progress_target RAN')
 #         return (self.__inscope, 'RECORDS')
         return (100, None)
     
