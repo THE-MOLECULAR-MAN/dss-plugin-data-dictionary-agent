@@ -164,7 +164,7 @@ class MyRunnable(Runnable):
                             status = 'error - DataikuException'
                             continue
                     else:
-                        status = 'skipped - dataset already had full description'
+                        status = 'skipped - dataset already had some description'
                 finally:
                     self.__progress += 1
                     progress_callback(self.__progress)
