@@ -32,6 +32,7 @@ class MyRunnable(Runnable):
 
         self.__num_ai_services_used = 0
         self.__progress = 0
+        self.__inscope  = 0
         self.__language                = self.config["language"]
         self.__project_purpose         = self.config["project_purpose"]
 
@@ -97,6 +98,7 @@ class MyRunnable(Runnable):
             project_handle = self.__client.get_project(project_key)
 
             # iterate through all datasets in that project
+            self.__inscope += len(project_handle.list_datasets())
             for dataset in project_handle.list_datasets():
                 try:
                     dataset_id = dataset["name"]
@@ -192,6 +194,7 @@ class MyRunnable(Runnable):
             flow_handle = project_handle.get_flow()
 
             # Iterate through each flow zone in a specific project
+            self.__inscope += len(flow_handle.list_zones())
             for flow_zone_handle in flow_handle.list_zones():
                 try:
                     # Ensure that the flow zone meets the requirements for
