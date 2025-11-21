@@ -60,6 +60,7 @@ class MyRunnable(Runnable):
             self.__inscope  = 1
         elif pf == "all_projects":
             self.__projects_list = self.__client.list_project_keys()
+            self.__inscope  = len(self.__projects_list)
         else:
             print(f"[WARNING] invalid project_filter: {pf} Defaulting to this project only")
             self.__projects_list = [self.project_key]
