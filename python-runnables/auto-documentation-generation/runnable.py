@@ -200,6 +200,8 @@ class MyRunnable(Runnable):
             self.__inscope += len(flow_handle.list_zones())
             for flow_zone_handle in flow_handle.list_zones():
                 try:
+                    rt_record = []
+                    status = 'start'                    
                     # Ensure that the flow zone meets the requirements for
                     # AI-Gen descriptions before attempting to have AI
                     # generate the description.
