@@ -83,7 +83,7 @@ class MyRunnable(Runnable):
         """
         # this function runs once and only once, and unfortunately it cannot dynamically update the target as the scope grows.
         return (self.__inscope, 'RECORDS')
-        return (1, None)
+        # return (1, None)
         # return None # this disables the status updates
     
     def run_datasets(self, progress_callback):
