@@ -107,12 +107,12 @@ def dataset_has_any_documentation(project_handle, dataset_id):
 
     column_descriptions = get_dataset_column_descriptions(dataset_handle)
 
-    if any(not s or not s.strip() for s in column_descriptions):
+    if any(s or not s.strip() for s in column_descriptions):
         # print(f'Dataset {dataset_id} lacks full documentation because empty: Column descriptions')
-        return False
+        return True
 
     # print(f'Dataset {dataset_id} has all description fields filled out.')
-    return True
+    return False
 
     
 
