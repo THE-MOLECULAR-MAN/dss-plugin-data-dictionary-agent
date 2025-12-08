@@ -41,6 +41,7 @@ class MyRunnable(Runnable):
         self.__flowzone_purpose        = self.config["flowzone_purpose"]
         self.__flowzone_length         = self.config["flowzone_length"]
         self.__save_description        = self.config["save_description"]
+        self.__overwrite_existing      = self.config["overwrite_existing"]
         #self.__tagname_aigen           = self.config["tagname_aigen"]
         #self.__tagname_do_not_autofill = self.config["tagname_DoNotAutoFill"]
         #arr = self.config["object_types_to_autofill"]
@@ -146,7 +147,7 @@ class MyRunnable(Runnable):
                     #if not dataset_has_full_documentation(project_handle, dataset_id):
 
                     # skip this dataset if it has ANY of the description fields filled out
-                    if not dataset_has_any_documentation(project_handle, dataset_id):
+                    if self.__overwrite_existing or not dataset_has_any_documentation(project_handle, dataset_id):
                         # test if the first row can be read. VERY IMPORTANT to filter out a lot of
                         # wasted AI Services calls.
                         if not read_first_dataset_row(project_key, dataset_id):
@@ -250,7 +251,7 @@ class MyRunnable(Runnable):
                     flow_zone_name = flow_zone_settings.get("name", "") # may throw exception?
                           
                     # only have AI write the description if there is not one there already
-                    if not flow_zone_has_description(flow_zone_handle):
+                    if self.__overwrite_existing or not flow_zone_has_description(flow_zone_handle):
                         print(
                             f"[CREATE] Generating flow zone documentation for {project_key}"
                         )
@@ -307,7 +308,7 @@ class MyRunnable(Runnable):
                     continue
 
                 # Only generate descriptions if there is not one already:
-                if is_project_description_empty(project_handle):
+                if self.__overwrite_existing or is_project_description_empty(project_handle):
                     print(
                         f"Project {project_key} has an empty description, generating AI description for it."
                     )

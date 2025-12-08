@@ -44,6 +44,12 @@ After 1,000 AI generated descriptions per day, responses are throttled and will 
             "type": "BOOLEAN",
             "defaultValue": False
           },
+          {
+            "name": "overwrite_existing",
+            "label": "Overwrite existing descriptions",
+            "type": "BOOLEAN",
+            "defaultValue": False
+          },
         {
               "name": "project_filter",
               "label": "Project filter",
