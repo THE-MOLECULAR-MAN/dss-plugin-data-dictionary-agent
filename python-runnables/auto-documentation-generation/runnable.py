@@ -168,10 +168,10 @@ class MyRunnable(Runnable):
                                 language=self.__language,
                                 save_description=self.__save_description,
                             )
-                            if self.__save_description:
-                                status = 'Generated & updated'
-                            else:
-                                status = 'Generated but dry run, not updated'
+#                             if self.__save_description:
+#                                 status = 'Generated & updated'
+#                             else:
+#                                 status = 'Generated but dry run, not updated'
 
                         #                 if SAVE_DESCRIPTION and dataset_has_full_documentation(project_handle, dataset_id):
                         #                     print(f"Successfully filled out all fields for {dataset_id}")
