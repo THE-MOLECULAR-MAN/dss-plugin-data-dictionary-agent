@@ -39,12 +39,6 @@ After 1,000 AI generated descriptions per day, responses are throttled and will 
     */
     "params": [
           {
-            "name": "save_description",
-            "label": "Apply AI generated changes (uncheck for dry run)",
-            "type": "BOOLEAN",
-            "defaultValue": False
-          },
-          {
             "name": "overwrite_existing",
             "label": "Overwrite existing descriptions",
             "type": "BOOLEAN",
