@@ -72,7 +72,7 @@ After 1,000 AI generated descriptions per day, responses are throttled and will 
             "name": "tag_name",
             "label": "Apply this tag to any resources that are changed. Leave empty for no tag",
              "type": "STRING",
-            "defaultValue": "auto_generated_description"
+            "defaultValue": "ai_generated_description"
           },
         {
               "name": "language",
