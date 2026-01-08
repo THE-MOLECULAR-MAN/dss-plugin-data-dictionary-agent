@@ -56,7 +56,7 @@ def _add_tag_to_settings(settings, tag_name: str, object_desc: str) -> None:
         object_desc: A description of the object for logging (e.g. "Dataset 'foo'")
     """
     if tag_name is None:
-        printf("Skipping tag.")
+        # printf("Skipping tag.")
         return None
     
     # Initialize tags list if it is currently None
