@@ -319,7 +319,7 @@ class MyRunnable(Runnable):
                         language=self.__language,
                         purpose=self.__project_purpose,
                         length=self.__project_length,
-                        save_description=self.__save_description,
+                        save_description=True,
                     )
                     if self.__save_description:
                         status = 'Generated & updated'
