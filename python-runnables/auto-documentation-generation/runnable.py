@@ -41,7 +41,7 @@ class MyRunnable(Runnable):
         self.__flowzone_purpose        = self.config["flowzone_purpose"]
         self.__flowzone_length         = self.config["flowzone_length"]
         # self.__save_description        = self.config["save_description"]
-        # self.__overwrite_existing      = self.config["overwrite_existing"]
+        self.__overwrite_existing      = self.config["overwrite_existing"]
         self.__tag_name                = self.config["tag_name"]
         #self.__tagname_do_not_autofill = self.config["tagname_DoNotAutoFill"]
         #arr = self.config["object_types_to_autofill"]
