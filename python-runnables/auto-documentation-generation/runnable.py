@@ -40,7 +40,7 @@ class MyRunnable(Runnable):
         self.__project_length          = self.config["project_length"]
         self.__flowzone_purpose        = self.config["flowzone_purpose"]
         self.__flowzone_length         = self.config["flowzone_length"]
-        self.__save_description        = self.config["save_description"]
+        # self.__save_description        = self.config["save_description"]
         # self.__overwrite_existing      = self.config["overwrite_existing"]
         self.__tag_name           = self.config["tag_name"]
         #self.__tagname_do_not_autofill = self.config["tagname_DoNotAutoFill"]
@@ -166,7 +166,7 @@ class MyRunnable(Runnable):
                             # actually generate and save the description
                             _ = dataset_handle.generate_ai_description(
                                 language=self.__language,
-                                save_description=self.__save_description,
+                                save_description=True,
                             )
 #                             if self.__save_description:
 #                                 status = 'Generated & updated'
