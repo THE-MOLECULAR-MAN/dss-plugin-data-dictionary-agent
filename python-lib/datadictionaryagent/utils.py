@@ -12,37 +12,61 @@ from dataikuapi.utils import DataikuException
 import dataikuapi
 from dataikuapi.dss.dataset import DSSDataset
 
-def apply_dataset_tag(dataset_handle: DSSDataset, tag_name: str) -> None:
-    """
-    Applies a specific tag to a Dataiku DSS dataset idempotently.
-    
-    This function loads the dataset settings, checks if the tag exists to avoid 
-    duplicates, and saves the settings if a change is required.
 
+from functools import singledispatch
+from dataikuapi.dss.dataset import DSSDataset
+from dataikuapi.dss.flow import DSSFlowZone
+from dataikuapi.dss.project import DSSProject
+
+@singledispatch
+def apply_dss_object_tag(dss_object, tag_name: str) -> None:
+    """
+    Generic function to apply a tag to a DSS object.
+    
+    Dispatches to specific implementations based on the type of 'dss_object'.
+    Raises TypeError if the object type is not supported.
+    """
+    raise TypeError(f"Tagging not supported for object type: {type(dss_object)}")
+
+@apply_dss_object_tag.register(DSSDataset)
+def _(dataset: DSSDataset, tag_name: str) -> None:
+    """Handler for DSSDataset objects."""
+    settings = dataset.get_settings()
+    _add_tag_to_settings(settings, tag_name, f"Dataset '{dataset.dataset_name}'")
+
+@apply_dss_object_tag.register(DSSFlowZone)
+def _(flow_zone: DSSFlowZone, tag_name: str) -> None:
+    """Handler for DSSFlowZone objects."""
+    settings = flow_zone.get_settings()
+    _add_tag_to_settings(settings, tag_name, f"Flow Zone '{flow_zone.name}'")
+
+@apply_dss_object_tag.register(DSSProject)
+def _(project: DSSProject, tag_name: str) -> None:
+    """Handler for DSSProject objects."""
+    settings = project.get_settings()
+    _add_tag_to_settings(settings, tag_name, f"Project '{project.project_key}'")
+
+def _add_tag_to_settings(settings, tag_name: str, object_desc: str) -> None:
+    """
+    Helper function to safely append a tag to a settings object and save.
+    
     Args:
-        dataset_handle (DSSDataset): The API handle of the dataset (from dataikuapi).
-        tag_name (str): The string tag to apply.
-
-    Returns:
-        None
+        settings: The settings object returned by .get_settings()
+        tag_name: The tag string to add
+        object_desc: A description of the object for logging (e.g. "Dataset 'foo'")
     """
-    if not isinstance(dataset_handle, DSSDataset):
-        raise TypeError("dataset_handle must be a dataikuapi.dss.dataset.DSSDataset object")
-
-    # Retrieve the dataset's settings
-    settings = dataset_handle.get_settings()
-    
-    # Ensure tags list is initialized
+    # Initialize tags list if it is currently None
     if settings.tags is None:
         settings.tags = []
 
-    # Idempotency check: Only append if the tag is not already present
+    # Idempotency Check
     if tag_name not in settings.tags:
         settings.tags.append(tag_name)
         settings.save()
-        print(f"Success: Tag '{tag_name}' applied to dataset '{dataset_handle.dataset_name}'.")
+        print(f"Success: Tag '{tag_name}' applied to {object_desc}.")
     else:
-        print(f"Info: Tag '{tag_name}' already exists on dataset '{dataset_handle.dataset_name}'. No changes made.")
+        print(f"Info: Tag '{tag_name}' already exists on {object_desc}. No changes made.")
+        
         
 
 def is_project_empty(project_handle):
