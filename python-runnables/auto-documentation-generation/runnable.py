@@ -261,12 +261,12 @@ class MyRunnable(Runnable):
                             language=self.__language,
                             purpose=self.__flowzone_purpose,
                             length=self.__flowzone_length,
-                            save_description=self.__save_description,
+                            save_description=True,
                         )
-                        if self.__save_description:
-                            status = 'Generated & updated'
-                        else:
-                            status = 'Generated but dry run, not updated'
+#                         if self.__save_description:
+#                             status = 'Generated & updated'
+#                         else:
+#                             status = 'Generated but dry run, not updated'
                     else:
                         status = 'skipped - already has description'
                 except (DataikuException, json.JSONDecodeError) as e:
