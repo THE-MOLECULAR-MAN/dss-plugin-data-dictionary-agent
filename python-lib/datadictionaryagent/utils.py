@@ -10,7 +10,40 @@ import dataiku
 from dataiku.runnables import Runnable
 from dataikuapi.utils import DataikuException
 import dataikuapi
+from dataikuapi.dss.dataset import DSSDataset
 
+def apply_dataset_tag(dataset_handle: DSSDataset, tag_name: str) -> None:
+    """
+    Applies a specific tag to a Dataiku DSS dataset idempotently.
+    
+    This function loads the dataset settings, checks if the tag exists to avoid 
+    duplicates, and saves the settings if a change is required.
+
+    Args:
+        dataset_handle (DSSDataset): The API handle of the dataset (from dataikuapi).
+        tag_name (str): The string tag to apply.
+
+    Returns:
+        None
+    """
+    if not isinstance(dataset_handle, DSSDataset):
+        raise TypeError("dataset_handle must be a dataikuapi.dss.dataset.DSSDataset object")
+
+    # Retrieve the dataset's settings
+    settings = dataset_handle.get_settings()
+    
+    # Ensure tags list is initialized
+    if settings.tags is None:
+        settings.tags = []
+
+    # Idempotency check: Only append if the tag is not already present
+    if tag_name not in settings.tags:
+        settings.tags.append(tag_name)
+        settings.save()
+        print(f"Success: Tag '{tag_name}' applied to dataset '{dataset_handle.dataset_name}'.")
+    else:
+        print(f"Info: Tag '{tag_name}' already exists on dataset '{dataset_handle.dataset_name}'. No changes made.")
+        
 
 def is_project_empty(project_handle):
     """This traps the JSONDecodeError exception that occurs when generate_ai_description is called
