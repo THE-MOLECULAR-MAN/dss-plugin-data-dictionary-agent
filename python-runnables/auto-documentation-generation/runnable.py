@@ -321,10 +321,10 @@ class MyRunnable(Runnable):
                         length=self.__project_length,
                         save_description=True,
                     )
-                    if self.__save_description:
-                        status = 'Generated & updated'
-                    else:
-                        status = 'Generated but dry run, not updated'
+#                     if self.__save_description:
+#                         status = 'Generated & updated'
+#                     else:
+#                         status = 'Generated but dry run, not updated'
                 else:
                     status = 'Skipped - already had non-empty description'
 
