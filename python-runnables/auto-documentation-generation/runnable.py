@@ -168,6 +168,8 @@ class MyRunnable(Runnable):
                                 language=self.__language,
                                 save_description=True,
                             )
+                            # only tag if previous line did not throw an exception
+                            apply_dss_object_tag(dataset_handle, self.__tag_name)
 #                             if self.__save_description:
 #                                 status = 'Generated & updated'
 #                             else:
