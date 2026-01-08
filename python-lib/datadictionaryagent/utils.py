@@ -55,6 +55,9 @@ def _add_tag_to_settings(settings, tag_name: str, object_desc: str) -> None:
         tag_name: The tag string to add
         object_desc: A description of the object for logging (e.g. "Dataset 'foo'")
     """
+    if tag_name is None:
+        return None
+    
     # Initialize tags list if it is currently None
     if settings.tags is None:
         settings.tags = []
