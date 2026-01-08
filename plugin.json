@@ -11,7 +11,7 @@
         "label": "Automatic dataset and project descriptions",
 
         // description: longer string to help end users understand what this plugin does
-        "description": "Automatically fill in descriptions for projects, flow zones, and datasets with AI Generated documentation. Future releases will provide a chatbot to help DSS users find an appropriate dataset.",
+        "description": "Fill in descriptions for projects, flow zones, and datasets with AI Generated documentation.",
 
         "author": "Tim Honker",
 
