@@ -3,12 +3,12 @@
     "id": "data-dictionary-agent",
 
     // It is highly recommended to use Semantic Versioning
-    "version": "0.2.2",
+    "version": "0.2.3",
 
     // Meta data for display purposes:
     "meta": {
         // label: name of the plugin as displayed, should be short
-        "label": "Data dictionary agent",
+        "label": "Automatic dataset and project documentation",
 
         // description: longer string to help end users understand what this plugin does
         "description": "Automatically fill in descriptions for projects, flow zones, and datasets with AI Generated documentation. Future releases will provide a chatbot to help DSS users find an appropriate dataset.",
