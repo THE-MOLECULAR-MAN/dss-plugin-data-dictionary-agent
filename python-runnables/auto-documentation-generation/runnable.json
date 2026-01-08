@@ -68,6 +68,12 @@ After 1,000 AI generated descriptions per day, responses are throttled and will 
               ],
               "mandatory": true
           },
+         {
+            "name": "apply_tag",
+            "label": "Apply this tag to any resources that are changed. Leave empty for no tag",
+             "type": "STRING",
+            "defaultValue": ""
+          },
         {
               "name": "language",
               "label": "Language",
